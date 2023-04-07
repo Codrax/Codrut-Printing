@@ -81,6 +81,11 @@ type
     EnableAnim: FXCheckBox;
     CloseOnPrint: FXCheckBox;
     CenterOnPage: FXCheckBox;
+    FXMinimisePanel6: FXMinimisePanel;
+    Label4: TLabel;
+    Extras_Filename: FXCheckBox;
+    Label5: TLabel;
+    Filename_Height: TNumberBox;
     procedure ImageListDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure ImageListMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -103,7 +108,7 @@ type
     procedure ImageListClick(Sender: TObject);
     procedure Printer_ImageSizeChange(Sender: TObject);
     procedure ReloadPrinterChange(Sender: TObject);
-    procedure Image_MarginChange(Sender: TObject);
+    procedure ChangeValue(Sender: TObject);
     procedure Image_FitModeChange(Sender: TObject);
     procedure DrawPreviewPaint(Sender: TObject);
     procedure Printer_MarginsChange(Sender: TObject);
@@ -114,7 +119,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure EnbLegFontChange(Sender: TObject);
     procedure Printer_CancelClick(Sender: TObject);
-    procedure CenterOnPageChange(Sender: TObject);
+    procedure CheckboxNeedChange(Sender: TObject);
   private
     { Private declarations }
     procedure ThemeChange(Sender: TObject; ThemeChange: FXThemeType; DarkTheme: boolean; Accent: TColor);
@@ -153,7 +158,7 @@ const
   // UI
   CUSTOM_TEXT = 'Custom';
 
-  APP_VERSION = '1.0.3.0';
+  APP_VERSION = '1.0.4.0';
 
 var
   Form1: TForm1;
@@ -161,6 +166,7 @@ var
   // Data
   StartingPoint : TPoint;
   AppData: string;
+  LoadingSettings: boolean;
 
   // Drawing Mode
   SelectedFit: TPrintFit;
@@ -168,13 +174,14 @@ var
 
   // Pictures
   CachedPictures: TArray<TBitMap>;
+  CachedFileNames: TArray<string>;
 
   // Pages and Preview
   CurrentPage: integer;
   CachedPages: TArray<TBitMap>;
 
   // Anim
-  FMenuAnimate: TIntAni;
+  AnimRunning: boolean;
 
   // Printer
   PageSize: TRect;
@@ -351,6 +358,9 @@ begin
         Printer_TwoSided.ItemIndex := ST[7].ToInteger;
         CloseOnPrint.IsChecked := stringtoboolean(ST[8]);
         CenterOnPage.IsChecked := stringtoboolean(ST[9]);
+
+        Extras_Filename.IsChecked := stringtoboolean(ST[10]);
+        Filename_Height.ValueInt := ST[11].ToInteger;
       finally
         ST.Free;
       end;
@@ -372,6 +382,9 @@ begin
         ST.Add( Printer_TwoSided.ItemIndex.ToString );
         ST.Add( booleantostring(CloseOnPrint.IsChecked) );
         ST.Add( booleantostring(CenterOnPage.IsChecked) );
+
+        ST.Add( booleantostring(Extras_Filename.IsChecked) );
+        ST.Add( Filename_Height.ValueInt.ToString );
 
         ST.SaveToFile( FileName );
       finally
@@ -454,7 +467,7 @@ var
 
   APage, X, Y,
   DEF_X, DEF_Y: integer;
-  DrawR: TRect;
+  DrawR, DrawRT: TRect;
 
   FitW, FitH: integer;
   I, P: Integer;
@@ -463,6 +476,10 @@ var
 
   A: FXDialog;
 begin
+  // Ignore begin component updates
+  if LoadingSettings then
+    Exit;
+
   // Initialize
   FitW := 1;
   FitH := 1;
@@ -522,7 +539,6 @@ begin
         A.Text := 'The picture size cannot be 0 or lower!';
 
         A.Buttons := [mbOk];
-        AnimatePanel(true);
 
         A.Execute;
 
@@ -601,6 +617,26 @@ begin
           SetLength(CachedPages, APage + 1);
 
           CachedPages[APage] := TBitMap.Create(PrintWidth, PrintHeight);
+        end;
+
+      // File Name
+      if Extras_Filename.IsChecked then
+        begin
+          DrawRT := DrawR;
+          DrawR.Height := DrawR.Height - Filename_Height.ValueInt;
+
+          DrawRT.Top := DrawR.Bottom;
+
+          with CachedPages[APage].Canvas do
+            begin
+              Font.Assign(Self.Font);
+              Font.Color := clBlack;
+
+              Font.Height := GetMaxFontHeight(CachedPages[APage].Canvas,
+                              CachedFileNames[I], DrawRT.Width, DrawRT.Height);
+
+              DrawTextRect( CachedPages[APage].Canvas, DrawRT, CachedFileNames[I], [tffCenter, tffVerticalCenter]  );
+            end;
         end;
 
       // Ready, Set, Draw!
@@ -726,15 +762,11 @@ procedure TForm1.AnimatePanel(Open: boolean);
 var
   Border,
   FinalPosition: integer;
+  FMenuAnimate: TIntAni;
 begin
   // Exit
-  if (FMenuAnimate <> nil) and FMenuAnimate.Running then
-    begin
-      FMenuAnimate.WaitFor;
-
-      FMenuAnimate.Free;
-      Exit;
-    end;
+  if AnimRunning then
+    Exit;
 
   // Icon
   if Open then
@@ -780,11 +812,14 @@ begin
   begin
     TThread.Synchronize(nil, procedure
       begin
+        AnimRunning := false;
         ImageList.Invalidate;
       end);
   end;
 
   // Start
+  AnimRunning := true;
+
   FMenuAnimate.Start;
   FMenuAnimate.FreeOnTerminate := true;
 end;
@@ -828,9 +863,11 @@ begin
           begin
             // New Size
             SetLength(CachedPictures, Index + 1);
+            SetLength(CachedFileNames, Index + 1);
 
             // Change Pointer
             CachedPictures[Index] := BitMap;
+            CachedFileNames[Index] := ExtractFileName(FileName);
           end;
       finally
         // Clear Pointer
@@ -874,7 +911,7 @@ begin
   end;
 end;
 
-procedure TForm1.CenterOnPageChange(Sender: TObject);
+procedure TForm1.CheckboxNeedChange(Sender: TObject);
 begin
   // Redraw Images
   ReDrawPages;
@@ -898,7 +935,7 @@ begin
   ReDrawPages;
 end;
 
-procedure TForm1.Image_MarginChange(Sender: TObject);
+procedure TForm1.ChangeValue(Sender: TObject);
 begin
   ReDrawPages;
 end;
@@ -1078,6 +1115,7 @@ begin
   // Program Data
   AppData := GetPathInAppData('Codrut Print');
   try
+    LoadingSettings := true;
     ProgramData(true);
   except
     A := FXDialog.Create;
@@ -1096,6 +1134,7 @@ begin
       A.Free;
     end;
   end;
+  LoadingSettings := false;
 
   // No Printer Error
   if Printer.Printers.Count = 0 then
@@ -1241,6 +1280,8 @@ begin
       DropPosition := ItemAtPos(DropPoint,True) ;
 
       Items.Move(StartPosition, DropPosition) ;
+
+      CheckImageList;
     end;
 end;
 

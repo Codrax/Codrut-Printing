@@ -308,6 +308,9 @@ object Form1: TForm1
       Width = 275
       Height = 581
       HorzScrollBar.Visible = False
+      VertScrollBar.ButtonSize = 2
+      VertScrollBar.ParentColor = False
+      VertScrollBar.ThumbSize = 2
       Align = alClient
       BorderStyle = bsNone
       DoubleBuffered = True
@@ -667,7 +670,7 @@ object Form1: TForm1
           IconFont.Style = []
           State = cbsChecked
           IsChecked = True
-          OnChange = CenterOnPageChange
+          OnChange = CheckboxNeedChange
           AutomaticCursorPointer = True
           Text = 'Center items on page'
         end
@@ -720,7 +723,7 @@ object Form1: TForm1
       object FXMinimisePanel4: FXMinimisePanel
         AlignWithMargins = True
         Left = 3
-        Top = 201
+        Top = 267
         Width = 269
         Height = 60
         Align = alTop
@@ -822,7 +825,7 @@ object Form1: TForm1
           Font.Height = -16
           Font.Name = 'Segoe UI'
           Font.Style = []
-          MaxValue = 500.000000000000000000
+          MaxValue = 1000.000000000000000000
           ParentFont = False
           TabOrder = 0
           Value = 10.000000000000000000
@@ -838,11 +841,11 @@ object Form1: TForm1
           Font.Height = -16
           Font.Name = 'Segoe UI'
           Font.Style = []
-          MaxValue = 500.000000000000000000
+          MaxValue = 1000.000000000000000000
           ParentFont = False
           TabOrder = 1
           Value = 5.000000000000000000
-          OnChange = Image_MarginChange
+          OnChange = ChangeValue
         end
         object Image_FitMode: TComboBox
           Left = 16
@@ -873,7 +876,7 @@ object Form1: TForm1
       object FXMinimisePanel5: FXMinimisePanel
         AlignWithMargins = True
         Left = 3
-        Top = 267
+        Top = 333
         Width = 269
         Height = 60
         Align = alTop
@@ -1075,6 +1078,123 @@ object Form1: TForm1
           Animations.PAAnimateEngine = cbneAtDraw
           Animations.FadeAnimation = True
           Animations.FASpeed = 10
+        end
+      end
+      object FXMinimisePanel6: FXMinimisePanel
+        AlignWithMargins = True
+        Left = 3
+        Top = 201
+        Width = 269
+        Height = 60
+        Align = alTop
+        BevelOuter = bvNone
+        Color = 15987699
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -17
+        Font.Name = 'Segoe UI Semibold'
+        Font.Style = []
+        ParentBackground = False
+        ParentFont = False
+        ShowCaption = False
+        TabOrder = 5
+        TabStop = True
+        CustomColors.Enabled = False
+        CustomColors.Accent = 13924352
+        CustomColors.LightBackGround = 15987699
+        CustomColors.LightForeGround = 1776410
+        CustomColors.DarkBackGround = 2105376
+        CustomColors.DarkForeGround = clWhite
+        CustomColors.LightBackGroundInterior = 16514043
+        CustomColors.DarkBackGroundInterior = 2829099
+        AccentLineWidth = 8
+        DefaultHeight = 225
+        HandleCustomColors.Enabled = False
+        HandleCustomColors.Accent = 13924352
+        HandleCustomColors.LightBackgroundNone = 9145227
+        HandleCustomColors.LightBackgroundHover = 10461087
+        HandleCustomColors.LightBackgroundPress = 7697781
+        HandleCustomColors.LightForeGroundNone = 1776411
+        HandleCustomColors.LightForeGroundHover = 1776411
+        HandleCustomColors.LightForeGroundPress = 8882055
+        HandleCustomColors.DarkBackGroundNone = 10657693
+        HandleCustomColors.DarkBackGroundHover = 12039603
+        HandleCustomColors.DarkBackGroundPress = 9275783
+        HandleCustomColors.DarkForeGroundNone = clWhite
+        HandleCustomColors.DarkForeGroundHover = clWhite
+        HandleCustomColors.DarkForeGroundPress = 13553358
+        HandleText = 'Extras'
+        HandleRoundness = 10
+        IsMinimised = True
+        Animation = True
+        Image.Enabled = True
+        Image.SelectSegoe = #60538
+        Image.SelectImageIndex = 0
+        object Label4: TLabel
+          Left = 16
+          Top = 66
+          Width = 201
+          Height = 27
+          AutoSize = False
+          Caption = 'Filename in photos'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentFont = False
+          Layout = tlCenter
+        end
+        object Extras_Filename: FXCheckBox
+          Left = 13
+          Top = 99
+          Width = 236
+          Height = 30
+          CustomColors.Enabled = False
+          CustomColors.Accent = 13924352
+          CustomColors.LightBackGround = 15987699
+          CustomColors.LightForeGround = 1776410
+          CustomColors.DarkBackGround = 2105376
+          CustomColors.DarkForeGround = clWhite
+          IconFont.Charset = DEFAULT_CHARSET
+          IconFont.Color = clWindowText
+          IconFont.Height = -16
+          IconFont.Name = 'Segoe Fluent Icons'
+          IconFont.Style = []
+          OnChange = CheckboxNeedChange
+          AutomaticCursorPointer = True
+          Text = 'Enable filenames'
+        end
+        object Label5: TLabel
+          Left = 13
+          Top = 135
+          Width = 204
+          Height = 27
+          AutoSize = False
+          Caption = 'Height space for filename(px)'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentFont = False
+          Layout = tlCenter
+        end
+        object Filename_Height: TNumberBox
+          Left = 13
+          Top = 168
+          Width = 220
+          Height = 29
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          MaxValue = 1000.000000000000000000
+          ParentFont = False
+          TabOrder = 0
+          Value = 200.000000000000000000
+          OnChange = ChangeValue
         end
       end
     end
