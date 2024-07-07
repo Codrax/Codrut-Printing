@@ -13,11 +13,9 @@ object LoadScreen: TLoadScreen
   Font.Height = -16
   Font.Name = 'Segoe UI'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnClose = FormClose
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 21
   object Label1: TLabel
     AlignWithMargins = True
@@ -79,7 +77,7 @@ object LoadScreen: TLoadScreen
     Margins.Bottom = 25
     Align = alTop
     TrueTransparency = True
-    AccentColor = acAccentAdjust
+    AccentColor = AccentAdjust
     Presets = cprNone
     TextOverlay.CaptionText = 'Loading'
     TextOverlay.FontColor = clBlack
@@ -92,7 +90,7 @@ object LoadScreen: TLoadScreen
     EnableAnimateInIDE = True
     ProgressbarOptions.BorderRadius = 16
     ProgressbarOptions.BorderColor = clBtnFace
-    Colors.Foreground = 5076360
+    Colors.Foreground = 1265132
     Colors.Background = clWhite
     Colors.FormSyncedColor = True
     AnimateProgress.Enable = True
@@ -122,7 +120,7 @@ object LoadScreen: TLoadScreen
     Caption = 'CPanel1'
     ShowCaption = False
     TabOrder = 1
-    UseAccentColor = acNone
+    UseAccentColor = None
     object VirtualImage1: TVirtualImage
       Left = 208
       Top = 0
@@ -159,10 +157,8 @@ object LoadScreen: TLoadScreen
       Height = 41
       Align = alRight
       Smooth = False
-      Opacity = 255
       GifSettings.Enable = True
       GifSettings.AnimationSpeed = 50
-      DrawMode = dmCenterFit
       Picture.Data = {
         0954474946496D616765474946383961D002D002C41F00373737AFAFAF8F8F8F
         4E4E4EF9F9F95D5D5D9F9F9F6F6F6F2F2F2F0F0F0FF5F5F5DFDFDFB4B4B49494
@@ -1572,11 +1568,8 @@ object LoadScreen: TLoadScreen
       Margins.Right = 8
       Margins.Bottom = 8
       Align = alLeft
-      Smooth = True
-      Opacity = 255
       GifSettings.Enable = False
       GifSettings.AnimationSpeed = 100
-      DrawMode = dmCenterFit
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D49484452000001F40000
         01F40806000000CBD6DF8A000000017352474200AECE1CE90000000467414D41

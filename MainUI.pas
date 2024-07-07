@@ -1,117 +1,182 @@
 ﻿unit MainUI;
 
+{$SCOPEDENUMS ON}
+
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Vcl.Printers, CFX.Types, Cod.Graphics, Cod.VarHelpers,
+  Vcl.Printers,  Cod.Graphics, Cod.VarHelpers,
   Vcl.NumberBox, Cod.Visual.Button, Cod.SysExtras, Loading_Screen,
-  Threading, Cod.Visual.Panels, CFX.Animations, Cod.Visual.Image,
-  CFX.ThemeManager, CFX.Dialogs, CFX.Forms, Size_Box, Cod.ByteUtils,
-  Printer_Info, Cod.IconPicker, Cod.Printing, Cod.Visual.Progress,
-  About_Form, CFX.Panels, Vcl.TitleBarCtrls, Cod.Visual.CheckBox, CFX.Checkbox,
-  Cod.Visual.SplashScreen, Vcl.Imaging.pngimage, IOUtils, Cod.Files,
-  Cod.Types;
+  Threading, Cod.Visual.Panels, Cod.Visual.Image,
+   Size_Box, Cod.ByteUtils, Cod.ColorUtils,
+  Printer_Info, Cod.Printing, Cod.Visual.Progress,
+  About_Form, Vcl.TitleBarCtrls, Cod.Visual.CheckBox,
+  Cod.Visual.SplashScreen, IOUtils, Cod.Files,
+  Cod.Types, IniFiles, Cod.StringUtils,
+
+  // Imaging
+  Vcl.Imaging.pngimage,
+  Vcl.Imaging.GIFImg,
+  Vcl.Imaging.jpeg,
+  Cod.Imaging.WebP,
+  Cod.Imaging.Heif,
+
+  // CFX
+  CFX.Forms, CFX.Types, CFX.ThemeManager, CFX.Dialogs, CFX.Checkbox, CFX.Panels,
+  CFX.Animations, CFX.Controls, CFX.ScrollBox, ShellAPI, Cod.FileDrop, CFX.TextBox,
+  CFX.Progress, Cod.ArrayHelpers, CFX.QuickDialogs, CFX.Button, CFX.AppManager,
+  Cod.Dialogs.ColorDialog, Vcl.ControlList;
 
 type
-  TPrintFit = (pfFull, pfMargin, pfSplit, pfRule4, pfRule9, pfContact, pfCustom);
+  TPrintFit = (Full, Split, Rule4, Rule9, Contact, Custom);
+
+  TImageItem = record
+    FileName: string;
+    Path: string;
+    Extension: string;
+
+    PreviewLoaded,
+    Loaded: boolean;
+
+    Thumbnail: TBitMap;
+    Image: TBitMap;
+  end;
+
+  TBaseTask = class(TThread)
+    Succeeded: boolean;
+
+    procedure Execute; override;
+
+    procedure DoPrepare; virtual;
+    procedure DoTask; virtual;
+    procedure DoFinalise; virtual;
+
+    constructor Create;
+  end;
+
+  TImageLoader = class(TBaseTask)
+    ThumbnailSize: TSize;
+
+    procedure DoPrepare; override;
+    procedure DoTask; override;
+    procedure DoFinalise; override;
+  end;
+
+  TImageDraw = class(TBaseTask)
+    Items: TStrings;
+
+    FitMode: TDrawMode;
+    ImageMargin: integer;
+    FilenameFont: TFont;
+    FilenameHeight: integer;
+    ExtraFilename,
+    PageCenter: boolean;
+
+    procedure DoPrepare; override;
+    procedure DoTask; override;
+    procedure DoFinalise; override;
+  end;
 
   TForm1 = class(FXForm)
-    OpenDialog: TOpenDialog;
+    OpenFilesDialog: TOpenDialog;
     Panel1: TPanel;
-    Slide_Menu: CPanel;
+    TitleBarPanel1: TTitleBarPanel;
+    CSplashScreen1: CSplashScreen;
+    FXScrollBox1: FXScrollBox;
+    FXMinimisePanel1: FXMinimisePanel;
+    Label1: TLabel;
+    Printer_List: TComboBox;
+    FXMinimisePanel2: FXMinimisePanel;
+    Label7: TLabel;
+    Label21: TLabel;
+    Printer_TwoSided: TComboBox;
+    Printer_Copies: TNumberBox;
+    FXMinimisePanel3: FXMinimisePanel;
+    Label8: TLabel;
+    Label17: TLabel;
+    CenterOnPage: FXCheckBox;
+    Printer_Orientation: TComboBox;
+    Printer_ImageSize: TComboBox;
+    FXMinimisePanel4: FXMinimisePanel;
+    Label9: TLabel;
+    Label18: TLabel;
+    Label14: TLabel;
+    Printer_Margins: TNumberBox;
+    Image_Margin: TNumberBox;
+    Image_FitMode: TComboBox;
+    FXMinimisePanel5: FXMinimisePanel;
+    Label2: TLabel;
+    Version_Text: TLabel;
+    Label3: TLabel;
+    EnbLegFont: FXCheckBox;
+    EnableAnim: FXCheckBox;
+    CloseOnPrint: FXCheckBox;
+    FXMinimisePanel6: FXMinimisePanel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Extras_Filename: FXCheckBox;
+    Filename_Height: TNumberBox;
+    FXButton4: FXButton;
+    FXButton5: FXButton;
+    FXButton6: FXButton;
+    FXAppManager1: FXAppManager;
+    Main_Contain: TPanel;
     Preview_Container: TPanel;
+    Panel4: TPanel;
+    DrawPreview: TPaintBox;
+    Panel7: TPanel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Button_ViewPrev: FXButton;
+    Button_ViewNext: FXButton;
+    Slide_Menu: CPanel;
     Panel5: TPanel;
     Panel2: TPanel;
     CPanel2: CPanel;
     Label10: TLabel;
     Label11: TLabel;
     CPanel3: CPanel;
-    LoadFiles: CButton;
-    CButton2: CButton;
+    FXButton1: FXButton;
+    FXButton2: FXButton;
+    FXButton3: FXButton;
     ListHolder: TPanel;
-    ImageList: TListBox;
-    PanelAnimate: CPanel;
-    Panel6: TPanel;
-    Printer_Cancel: CButton;
-    Printer_Print: CButton;
-    ScrollBox1: TScrollBox;
+    AddPicturePanel: TPanel;
     IconsPanel: TPanel;
+    Label6: TLabel;
+    Label19: TLabel;
+    PanelAnimate: CPanel;
+    PrinterSetupDialog1: TPrinterSetupDialog;
+    FXButton7: FXButton;
+    FXPanel1: FXPanel;
+    ProgressStatus: FXTextBox;
+    ProgressImage: FXProgress;
+    Printer_Cancel: FXButton;
+    Printer_Print: FXButton;
     Label12: TLabel;
+    FXButton8: FXButton;
+    ColorDialog1: CColorDialog;
+    FXButton9: FXButton;
+    ControlList1: TControlList;
+    CImage1: CImage;
     Label13: TLabel;
-    ProgressLoad: CProgress;
-    FXMinimisePanel1: FXMinimisePanel;
-    Printer_List: TComboBox;
-    CButton1: CButton;
-    Label1: TLabel;
-    FXMinimisePanel2: FXMinimisePanel;
-    Label7: TLabel;
-    Printer_TwoSided: TComboBox;
-    Label21: TLabel;
-    Printer_Copies: TNumberBox;
-    TitleBarPanel1: TTitleBarPanel;
-    FXMinimisePanel3: FXMinimisePanel;
-    Label8: TLabel;
-    Printer_Orientation: TComboBox;
-    Label17: TLabel;
-    Printer_ImageSize: TComboBox;
-    FXMinimisePanel4: FXMinimisePanel;
-    Label9: TLabel;
-    Label18: TLabel;
-    Printer_Margins: TNumberBox;
-    Image_Margin: TNumberBox;
-    Label14: TLabel;
-    Image_FitMode: TComboBox;
-    Panel3: TPanel;
-    DrawPreview: TPaintBox;
-    Panel7: TPanel;
-    Label15: TLabel;
-    Label16: TLabel;
-    Button_ViewPrev: CButton;
-    Button_ViewNext: CButton;
-    ProgressImage: CProgress;
-    FXMinimisePanel5: FXMinimisePanel;
-    Label2: TLabel;
-    Version_Text: TLabel;
-    EnbLegFont: FXCheckBox;
-    Label3: TLabel;
-    CButton3: CButton;
-    CSplashScreen1: CSplashScreen;
-    EnableAnim: FXCheckBox;
-    CloseOnPrint: FXCheckBox;
-    CenterOnPage: FXCheckBox;
-    FXMinimisePanel6: FXMinimisePanel;
-    Label4: TLabel;
-    Extras_Filename: FXCheckBox;
-    Label5: TLabel;
-    Filename_Height: TNumberBox;
-    procedure ImageListDragDrop(Sender, Source: TObject; X, Y: Integer);
-    procedure ImageListMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure ImageListDragOver(Sender, Source: TObject; X, Y: Integer;
-      State: TDragState; var Accept: Boolean);
+    Label20: TLabel;
+    Label22: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure Printer_PrintClick(Sender: TObject);
     procedure LoadFilesClick(Sender: TObject);
     procedure Printer_OrientationChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
-    procedure CButton2Click(Sender: TObject);
-    procedure ImageListKeyUp(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure PanelAnimateClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure ScrollBox1MouseWheel(Sender: TObject; Shift: TShiftState;
       WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
     procedure Button_ViewNextClick(Sender: TObject);
     procedure Button_ViewPrevClick(Sender: TObject);
-    procedure ImageListClick(Sender: TObject);
     procedure Printer_ImageSizeChange(Sender: TObject);
-    procedure ReloadPrinterChange(Sender: TObject);
-    procedure ChangeValue(Sender: TObject);
     procedure Image_FitModeChange(Sender: TObject);
     procedure DrawPreviewPaint(Sender: TObject);
-    procedure Printer_MarginsChange(Sender: TObject);
     procedure CButton1Click(Sender: TObject);
     procedure CButton3Click(Sender: TObject);
     procedure CSplashScreen1CompleteSetup(Sender: CSplashScreen);
@@ -120,6 +185,30 @@ type
     procedure EnbLegFontChange(Sender: TObject);
     procedure Printer_CancelClick(Sender: TObject);
     procedure CheckboxNeedChange(Sender: TObject);
+    procedure CButton4Click(Sender: TObject);
+    procedure FXButton1Click(Sender: TObject);
+    procedure FXButton6Click(Sender: TObject);
+    procedure FXAppManager1UpdateStartCheck(Sender: TObject);
+    procedure FXAppManager1UpdateChecked(Sender: TObject);
+    procedure FXButton7Click(Sender: TObject);
+    procedure Printer_ListChange(Sender: TObject);
+    procedure Printer_CopiesExit(Sender: TObject);
+    procedure EditSaveHandler(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure Filename_HeightExit(Sender: TObject);
+    procedure Printer_MarginsExit(Sender: TObject);
+    procedure Image_MarginExit(Sender: TObject);
+    procedure FXButton8Click(Sender: TObject);
+    procedure FXButton9Click(Sender: TObject);
+    procedure ControlList1BeforeDrawItem(AIndex: Integer; ACanvas: TCanvas;
+      ARect: TRect; AState: TOwnerDrawState);
+    procedure ControlList1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure ControlList1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure ControlList1KeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure ControlList1ItemClick(Sender: TObject);
   private
     { Private declarations }
     procedure ThemeChange(Sender: TObject; ThemeChange: FXThemeType; DarkTheme: boolean; Accent: TColor);
@@ -127,20 +216,30 @@ type
     procedure RecurseApply(Control: TWinControl; ThemeDark: boolean);
     procedure AnimatePanel(Open: boolean);
 
-    procedure CheckImageList;
+    // Images
+    procedure ImagesUpdated;
+    procedure AddImages(Files: TArray<string>);
+    procedure DeleteImage(Index: integer);
 
     // Page Viewing
     procedure ViewPage(Index: integer);
 
-    // Images
-    procedure CacheImages;
+    // Threads
+    procedure ReDrawPages;
 
     // Page Draw System
-    procedure ReDrawPages;
     procedure PagesUpdated;
+
+    // Progress
+    procedure ResetProgress(Enabled: boolean = false; Status: string = ''; Marquee: boolean = false);
+    procedure SetProgress(Value: single);
+    procedure SetEnableInteraction(Enable: boolean);
 
     // Data
     procedure ProgramData(Load: boolean = false);
+
+    // Drag drop
+    procedure WMDropFiles(var Msg: TWMDropFiles); message WM_DROPFILES;
 
     // Dialogs
     function GetNewPaperSize: boolean;
@@ -149,7 +248,24 @@ type
     { Public declarations }
     // Printer API
     function PrinterName: string;
-    procedure ReloadPrinter;
+
+    // Printers
+    function GetPrinterList: TArray<string>;
+    /// <sumary>
+    /// Load printer list and returns if any changes were detected.
+    /// <summary>
+    function LoadPrinters: boolean;
+    function LoadPrintersDialog: boolean;
+
+    // Pages
+    function AllocateNewPage(AWidth, AHeight: integer): integer;
+    procedure FreeAllocatedPages;
+
+    // Printer
+    procedure GetPrinterInfo;
+    procedure ReadPrinterSettings;
+    procedure WritePrinterSettings;
+
     function PixelsToCm(pixels: extended; DPI: Integer): Double;
     function PixelsToCmStr(pixels: extended; DPI: Integer; cmText: string = 'cm'): string;
   end;
@@ -158,35 +274,36 @@ const
   // UI
   CUSTOM_TEXT = 'Custom';
 
-  APP_VERSION = '1.0.4.0';
+  // Printing
+  DEFAULT_PAGE_COLOR = clWhite;
 
 var
   Form1: TForm1;
 
   // Data
-  StartingPoint : TPoint;
   AppData: string;
-  LoadingSettings: boolean;
 
   // Drawing Mode
+  PageBackground: TColor = DEFAULT_PAGE_COLOR;
   SelectedFit: TPrintFit;
   CustomFit: TPoint;
 
-  // Pictures
-  CachedPictures: TArray<TBitMap>;
-  CachedFileNames: TArray<string>;
+  // Data
+  Images: TArray<TImageItem>;
 
   // Pages and Preview
   CurrentPage: integer;
   CachedPages: TArray<TBitMap>;
 
-  // Anim
+  // Status
+  LoadingSettings: boolean;
+  ImagesLoading: boolean;
+  PagesRendering: boolean;
   AnimRunning: boolean;
 
   // Printer
   PageSize: TRect;
-
-  // Printer DPI
+  RegisteredPrinters: TArray<string>;
   DPI_X,
   DPI_Y: Integer;
 
@@ -196,7 +313,7 @@ implementation
 
 procedure TForm1.Printer_OrientationChange(Sender: TObject);
 begin
-  ReloadPrinter;
+  WritePrinterSettings;
 
   // Redraw
   ReDrawPages
@@ -206,14 +323,13 @@ procedure TForm1.Printer_PrintClick(Sender: TObject);
 var
   TotalPages, Index, PageInc: integer;
   I: Integer;
-
-  A: FXDialog;
 begin
   // Exit
   WaitUntilPrinterFree;
 
   // Printer Settings
-  ReloadPrinter;
+  if LoadPrintersDialog then
+    Exit;
 
   // Pages Count
   TotalPages := Length(CachedPages);
@@ -221,41 +337,17 @@ begin
   // No Images
   if TotalPages = 0 then
     begin
-      A := FXDialog.Create;
-
-      // FX Dialog
-      try
-        A.Title := 'No images to print';
-        A.Text := 'Please add some images to print';
-
-        A.Buttons := [mbOk];
-        AnimatePanel(true);
-
-        A.Execute;
-      finally
-        A.Free;
-      end;
-
+      OpenMessage('No images to print', 'Please add some images to print');
       Exit;
     end;
 
   // Printer Offline
   if not IsPrinterOnline(PrinterName) then
     begin
-      A := FXDialog.Create;
-
-      // FX Dialog
-      try
-        A.Title := 'The selected printer is offline';
-        A.Text := 'The selected printer seems to be offline, send print request anyways?';
-
-        A.Buttons := [mbYes, mbNo];
-
-        if A.Execute = mrNo then
-          Exit;
-      finally
-        A.Free;
-      end;
+      if OpenDialog('The selected printer is offline',
+        'The selected printer seems to be offline, send print request anyways?',
+        [mbYes, mbNo]) = mrNo then
+        Exit;
     end;
 
   // Advance Type (Double Siding)
@@ -280,21 +372,8 @@ begin
   // Print Canceled
   if not Printer.Printing then
     begin
-      A := FXDialog.Create;
-
-      // FX Dialog
-      try
-        A.Title := 'Print canceled';
-        A.Text := 'The print job has been canceled';
-
-        A.Buttons := [mbOk];
-
-        A.Execute;
-
-        Exit;
-      finally
-        A.Free;
-      end;
+      OpenMessage('The print job has been canceled', 'Print canceled');
+      Exit;
     end;
 
   // Draw Pages
@@ -304,7 +383,7 @@ begin
       Index := I - 1;
 
       // Draw Bitmap
-      DrawImageInRect( Printer.Canvas, PageSize, CachedPages[Index], TDrawMode.dmCenterFit, Printer_Margins.ValueInt, false );
+      DrawImageInRect( Printer.Canvas, PageSize, CachedPages[Index], TDrawMode.CenterFit, Printer_Margins.ValueInt, false );
 
       // Increase
       Inc( I, PageInc );
@@ -323,74 +402,79 @@ begin
   WaitUntilPrinterFree( 'Printing', 'Now printing your document', 1 );
 
   // Close after Print
-  if CloseOnPrint.IsChecked then
+  if CloseOnPrint.Checked then
     Close;
 end;
 
 procedure TForm1.ProgramData(Load: boolean);
+const
+  CAT_APP = 'App';
+  CAT_PRINT = 'Printing';
+  CAT_EXTRA = 'Extras';
 var
-  FileName: string;
-  ST: TStringList;
+  Ini: TIniFile;
 begin
-  FileName := AppData + 'settings.dat';
+  Ini := TIniFile.Create(FXAppManager1.AppData + 'settings.ini');
 
-  if Load then
-    begin
-      if not TFile.Exists(FileName) then
-        Exit;
+  with Ini do
+    try
+      if Load then
+        begin
+          // Load
+          EnableAnim.Checked := ReadBool(CAT_APP, 'Enable anim', EnableAnim.Checked);
+          EnbLegFont.Checked := ReadBool(CAT_APP, 'Legacy font', EnbLegFont.Checked);
+          CloseOnPrint.Checked := ReadBool(CAT_APP, 'Close on print', CloseOnPrint.Checked);
 
-      ST := TStringList.Create;
-      try
-        // Window
-        ST.LoadFromFile( FileName );
-        if ST[0] = '0' then
-          begin
-            Position := poDesigned;
-            Left := ST[1].ToInteger;
-            Top := ST[2].ToInteger;
-            Width := ST[3].ToInteger;
-            Height := ST[4].ToInteger;
-          end;
+          Printer_TwoSided.ItemIndex := ReadInteger(CAT_PRINT, 'Two Sided printing', Printer_TwoSided.ItemIndex);
+          CenterOnPage.Checked := ReadBool(CAT_PRINT, 'Center page', CenterOnPage.Checked);
 
-        // Settings
-        EnableAnim.IsChecked := stringtoboolean(ST[5]);
-        EnbLegFont.IsChecked := stringtoboolean(ST[6]);
-        Printer_TwoSided.ItemIndex := ST[7].ToInteger;
-        CloseOnPrint.IsChecked := stringtoboolean(ST[8]);
-        CenterOnPage.IsChecked := stringtoboolean(ST[9]);
+          Extras_Filename.Checked := ReadBool(CAT_EXTRA, 'Enable filenames', Extras_Filename.Checked);
+          Filename_Height.ValueInt := ReadInteger(CAT_EXTRA, 'Filename height', Filename_Height.ValueInt);
+        end
+      else
+        begin
+          // Write
+          WriteBool(CAT_APP, 'Enable anim', EnableAnim.Checked);
+          WriteBool(CAT_APP, 'Legacy font', EnbLegFont.Checked);
+          WriteBool(CAT_APP, 'Close on print', CloseOnPrint.Checked);
 
-        Extras_Filename.IsChecked := stringtoboolean(ST[10]);
-        Filename_Height.ValueInt := ST[11].ToInteger;
-      finally
-        ST.Free;
-      end;
-    end
-  else
-    begin
-      ST := TStringList.Create;
-      try
-        // Window
-        ST.Add(integer(WindowState).ToString);
-        ST.Add( Left.ToString );
-        ST.Add( Top.ToString );
-        ST.Add( Width.ToString );
-        ST.Add( Height.ToString );
+          WriteInteger(CAT_PRINT, 'Two Sided printing', Printer_TwoSided.ItemIndex);
+          WriteBool(CAT_PRINT, 'Center page', CenterOnPage.Checked);
 
-        // Settings
-        ST.Add( booleantostring(EnableAnim.IsChecked) );
-        ST.Add( booleantostring(EnbLegFont.IsChecked) );
-        ST.Add( Printer_TwoSided.ItemIndex.ToString );
-        ST.Add( booleantostring(CloseOnPrint.IsChecked) );
-        ST.Add( booleantostring(CenterOnPage.IsChecked) );
-
-        ST.Add( booleantostring(Extras_Filename.IsChecked) );
-        ST.Add( Filename_Height.ValueInt.ToString );
-
-        ST.SaveToFile( FileName );
-      finally
-        ST.Free;
-      end;
+          WriteBool(CAT_EXTRA, 'Enable filenames', Extras_Filename.Checked);
+          WriteInteger(CAT_EXTRA, 'Filename height', Filename_Height.ValueInt);
+        end;
+    finally
+      Free;
     end;
+end;
+
+procedure TForm1.ReadPrinterSettings;
+begin
+  // Wait if printer busy
+  WaitUntilPrinterFree();
+
+  // Apply
+  //Printer_Copies.ValueInt := Printer.Copies; // broken
+
+  Printer_Orientation.ItemIndex := integer(Printer.Orientation);
+
+  // Information
+  GetPrinterInfo;
+end;
+
+procedure TForm1.WritePrinterSettings;
+begin
+  // Wait if printer busy
+  WaitUntilPrinterFree();
+
+  // Apply
+  Printer.Copies := Printer_Copies.ValueInt;
+
+  Printer.Orientation := TPrinterOrientation( Printer_Orientation.ItemIndex );
+
+  // Information
+  GetPrinterInfo;
 end;
 
 procedure TForm1.RecurseApply(Control: TWinControl; ThemeDark: boolean);
@@ -425,7 +509,7 @@ begin
       if Components[I] is TPanel then
         begin
           TPanel(Components[I]).Font.Color := FontColor;
-        
+
           if not TPanel(Components[I]).ParentColor then
             case TPanel(Components[I]).Tag of
               1: TPanel(Components[I]).Color := Fill1;
@@ -441,7 +525,7 @@ begin
       if Components[I] is TScrollBox then
         begin
           TScrollBox(Components[I]).Font.Color := FontColor;
-          
+
             case TScrollBox(Components[I]).Tag of
               1: TScrollBox(Components[I]).Color := Fill1;
               2: TScrollBox(Components[I]).Color := Fill2;
@@ -461,224 +545,70 @@ begin
 end;
 
 procedure TForm1.ReDrawPages;
-var
-  PrintWidth, PrintHeight,
-  TotalPictures: integer;
-
-  APage, X, Y,
-  DEF_X, DEF_Y: integer;
-  DrawR, DrawRT: TRect;
-
-  FitW, FitH: integer;
-  I, P: Integer;
-
-  OverfillX, OverfillY: boolean;
-
-  A: FXDialog;
 begin
-  // Ignore begin component updates
-  if LoadingSettings then
-    Exit;
-
-  // Initialize
-  FitW := 1;
-  FitH := 1;
-
-  // Get Image Fit Settings
-  case SelectedFit of
-    pfFull, pfMargin: begin
-      FitW := PageSize.Width;
-      FitH := PageSize.Height;
-    end;
-    pfSplit: begin
-      if Printer.Orientation = poPortrait then
-        begin
-          FitW := PageSize.Width;
-          FitH := PageSize.Height div 2;
-        end
-      else
-        begin
-          FitW := PageSize.Width div 2;
-          FitH := PageSize.Height;
-        end;
-    end;
-    pfRule4: begin
-      FitW := PageSize.Width div 2;
-      FitH := PageSize.Height div 2;
-    end;
-    pfRule9: begin
-      FitW := PageSize.Width div 3;
-      FitH := PageSize.Height div 3;
-    end;
-    pfContact: begin
-      if Printer.Orientation = poPortrait then
-        begin
-          FitW := PageSize.Width div 5;
-          FitH := PageSize.Height div 7;
-        end
-      else
-        begin
-          FitW := PageSize.Width div 7;
-          FitH := PageSize.Height div 5;
-        end;
-    end;
-    pfCustom: begin
-      FitW := CustomFit.X;
-      FitH := CustomFit.Y;
-    end;
+  if not (LoadingSettings or PagesRendering) then begin
+    PagesRendering := true;
+    TImageDraw.Create;
   end;
 
-  // Invalid Size
-  if (FitW <= 0) or (FitH <= 0) then
-    begin
-      A := FXDialog.Create;
-
-      // FX Dialog
-      try
-        A.Title := 'Invalid Picture Size';
-        A.Text := 'The picture size cannot be 0 or lower!';
-
-        A.Buttons := [mbOk];
-
-        A.Execute;
-
-        Exit;
-      finally
-        A.Free;
-      end;
-    end;
-
-  // Clear previous
-  SetLength(CachedPages, 0);
-
-  // Prepare
-  APage := 0;
-
-  PrintWidth := PageSize.Width;
-  PrintHeight := PageSize.Height;
-
-  TotalPictures := High(CachedPictures);
-
-  // Default Starting Points
-  if CenterOnPage.IsChecked then
-    begin
-      DEF_X := (PrintWidth mod FitW) div 2;
-      DEF_Y := (PrintHeight mod FitH) div 2;
-    end
-  else
-    begin
-      DEF_X := 0;
-      DEF_Y := 0;
-    end;
-
-  // Default Starting Values
-  X := DEF_X;
-  Y := DEF_Y;
-
-  // Progress Setup
-  ProgressImage.Visible := true;
-
-  // Redraw Cached Bitmaps
-  for I := 0 to TotalPictures do
-    begin
-      // Progress
-      P := round(((I+1) / (TotalPictures + 1)) * 100);
-
-      if P <> ProgressImage.Position then
-        ProgressImage.Position := P;
-
-      // Overfill Width
-      OverfillX := X + FitW > PrintWidth;
-
-      if OverfillX then
-        begin
-          X := DEF_X;
-          Y := Y + FitH;
-        end;
-
-      // Overfill Height
-      OverfillY := Y + FitH > PrintHeight;
-
-      if OverfillY then
-        begin
-          X := DEF_X;
-          Y := DEF_Y;
-
-          // Next Page
-          Inc(APage);
-        end;
-
-      // Draw Rect
-      DrawR := Rect( X, Y, X + FitW, Y + FitH );
-
-      // Increase Size
-      if APage > High(CachedPages) then
-        begin
-          SetLength(CachedPages, APage + 1);
-
-          CachedPages[APage] := TBitMap.Create(PrintWidth, PrintHeight);
-        end;
-
-      // File Name
-      if Extras_Filename.IsChecked then
-        begin
-          DrawRT := DrawR;
-          DrawR.Height := DrawR.Height - Filename_Height.ValueInt;
-
-          DrawRT.Top := DrawR.Bottom;
-
-          with CachedPages[APage].Canvas do
-            begin
-              Font.Assign(Self.Font);
-              Font.Color := clBlack;
-
-              Font.Height := GetMaxFontHeight(CachedPages[APage].Canvas,
-                              CachedFileNames[I], DrawRT.Width, DrawRT.Height);
-
-              DrawTextRect( CachedPages[APage].Canvas, DrawRT, CachedFileNames[I], [tffCenter, tffVerticalCenter]  );
-            end;
-        end;
-
-      // Ready, Set, Draw!
-      DrawImageInRect(CachedPages[APage].Canvas, DrawR, CachedPictures[I],
-        TDrawMode(Image_FitMode.ItemIndex), Image_Margin.ValueInt, true);
-
-      // Time for the next page
-      X := X + FitW;
-    end;
-
-  // Progress Setup
-  ProgressImage.Visible := false;
-
-  // Update
-  PagesUpdated;
-end;
-
-procedure TForm1.ReloadPrinter;
-var
-  PrinterDC: HDC;
-begin
-  // Wait if printer busy
-  WaitUntilPrinterFree();
-
-  // Apply
-  Printer.PrinterIndex := Printer_List.ItemIndex;
-
-  Printer.Copies := Printer_Copies.ValueInt;
-
-  Printer.Orientation := TPrinterOrientation( Printer_Orientation.ItemIndex );
-  PageSize := Rect( 0, 0, Printer.PageWidth, Printer.PageHeight );
-
-  // DPI
-  PrinterDC := Printer.Handle;
-  DPI_X := GetDeviceCaps(PrinterDC, LOGPIXELSX);
-  DPI_Y := GetDeviceCaps(PrinterDC, LOGPIXELSY);
+  Application.ProcessMessages;
 end;
 
 procedure TForm1.ScrollBox1MouseWheel(Sender: TObject; Shift: TShiftState;
   WheelDelta: Integer; MousePos: TPoint; var Handled: Boolean);
 begin
-  ScrollBox1.VertScrollBar.Position := ScrollBox1.VertScrollBar.Position - WheelDelta div 10;
+  TScrollBox(Sender).VertScrollBar.Position := TScrollBox(Sender).VertScrollBar.Position - WheelDelta div 10;
+end;
+
+procedure TForm1.SetEnableInteraction(Enable: boolean);
+begin
+  TThread.Synchronize(TThread.Current, procedure
+    begin
+      // Self.Enabled := Enable; This would work, but It disallows moving the window around
+
+      Panel1.Enabled := Enable;
+      FXPanel1.Enabled := Enable;
+      Preview_Container.Enabled := Enable;
+      Slide_Menu.Enabled := Enable;
+      Panel1.Enabled := Enable;
+
+      DragAcceptFiles(Self.Handle, Enable);
+    end);
+end;
+
+procedure TForm1.SetProgress(Value: single);
+begin
+  TThread.Synchronize(TThread.Current, procedure
+    begin
+      ProgressImage.Value := Value;
+
+      Application.ProcessMessages;
+    end);
+end;
+
+procedure TForm1.ResetProgress(Enabled: boolean; Status: string; Marquee: boolean);
+begin
+  TThread.Synchronize(TThread.Current, procedure
+    begin
+      if Enabled then
+        begin
+          ProgressImage.Reset;
+
+          ProgressStatus.Text := Status;
+
+          if Marquee then
+            ProgressImage.ProgressKind := FXProgressKind.Intermediate
+          else
+            ProgressImage.ProgressKind := FXProgressKind.Normal;
+        end;
+
+      // Visible
+      ProgressImage.Visible := Enabled;
+      ProgressStatus.Visible := Enabled;
+
+      // Message
+      Application.ProcessMessages;
+    end);
 end;
 
 procedure TForm1.ThemeChange(Sender: TObject; ThemeChange: FXThemeType;
@@ -694,6 +624,8 @@ begin
     begin
       Preview_Container.Color := $00DBDBDB;
     end;
+
+  ControlList1.Color := ThemeManager.SystemColor.BackGroundInterior;
 
   // Interface
   Slide_Menu.Color := ThemeManager.AccentColor;
@@ -758,6 +690,55 @@ begin
     end;
 end;
 
+procedure TForm1.WMDropFiles(var Msg: TWMDropFiles);
+var
+  Catcher: TFileCatcher;
+  Items: TArray<string>;
+begin
+  Catcher := TFileCatcher.Create(Msg.Drop);
+
+  // Was empty
+  if Length(Images) = 0 then
+    AnimatePanel(false);
+
+  // Add files
+  SetLength(Items, Catcher.FileCount);
+  for var I := 0 to High(Items) do
+    Items[I] := Catcher.Files[I];
+
+  AddImages(Items);
+end;
+
+procedure TForm1.AddImages(Files: TArray<string>);
+begin
+  if Length(Files) = 0 then
+    Exit;
+
+  for var I := 0 to High(Files) do
+    if TFile.Exists(Files[I]) then
+      with Images[TArrayUtils<TImageItem>.AddValue(Images)] do begin
+        FileName := ExtractFileName(Files[I]);
+        Path := Files[I];
+        Extension := Uppercase(ExtractFileName(Files[I])).Remove(0, 1);
+
+        Loaded := false;
+      end;
+
+  // Loader
+  if not ImagesLoading then
+    TImageLoader.Create;
+
+  // Updated
+  ImagesUpdated;
+end;
+
+function TForm1.AllocateNewPage(AWidth, AHeight: integer): integer;
+begin
+  Result := Length(CachedPages);
+  SetLength(CachedPages, Result+1);
+  CachedPages[Result] := TBitMap.Create(AWidth, AHeight);
+end;
+
 procedure TForm1.AnimatePanel(Open: boolean);
 var
   Border,
@@ -784,18 +765,18 @@ begin
   FMenuAnimate.StartValue := Slide_Menu.Left;
   if Open then
     begin
-      FinalPosition := ClientWidth - Slide_Menu.Width;
+      FinalPosition := Main_Contain.Width - Slide_Menu.Width;
       FMenuAnimate.AniFunctionKind := afkBack;
     end
   else
     begin
-      FinalPosition := ClientWidth - Border;
+      FinalPosition := Main_Contain.Width - Border;
       FMenuAnimate.AniFunctionKind := afkQuintic;
     end;
   FMenuAnimate.DeltaValue := FinalPosition - Slide_Menu.Left;
 
   // Instant Mode
-  if not EnableAnim.IsChecked then
+  if not EnableAnim.Checked then
     begin
       Slide_Menu.Left := FinalPosition;
 
@@ -813,7 +794,6 @@ begin
     TThread.Synchronize(nil, procedure
       begin
         AnimRunning := false;
-        ImageList.Invalidate;
       end);
   end;
 
@@ -834,48 +814,6 @@ begin
   ViewPage( CurrentPage - 1 );
 end;
 
-procedure TForm1.CacheImages;
-var
-  I, Index: Integer;
-  BitMap: TBitMap;
-  FileName: string;
-begin
-  // Clear Bitmaps
-  for I := 0 to High(CachedPictures) do
-    if not CachedPictures[I].Empty then
-      CachedPictures[I].Free;
-
-  // Load Images
-  SetLength(CachedPictures, 0);
-
-  // Get Images
-  for I := 0 to ImageList.Count - 1 do
-    begin
-      // File
-      FileName := ImageList.Items[I];
-
-      // Load if possible
-      try
-        LoadGraphicAsBitmap(FileName, BitMap);
-
-        Index := Length(CachedPictures);
-        if (BitMap <> nil) and (not BitMap.Empty) then
-          begin
-            // New Size
-            SetLength(CachedPictures, Index + 1);
-            SetLength(CachedFileNames, Index + 1);
-
-            // Change Pointer
-            CachedPictures[Index] := BitMap;
-            CachedFileNames[Index] := ExtractFileName(FileName);
-          end;
-      finally
-        // Clear Pointer
-        BitMap := nil;
-      end;
-    end;
-end;
-
 procedure TForm1.CButton1Click(Sender: TObject);
 begin
   WaitUntilPrinterFree();
@@ -893,22 +831,24 @@ begin
   end;
 end;
 
-procedure TForm1.CButton2Click(Sender: TObject);
-begin
-  ImageList.DeleteSelected;
-
-  CheckImageList;
-end;
-
 procedure TForm1.CButton3Click(Sender: TObject);
 begin
   About := TAbout.Create(Self);
   try
-    About.VerLabel.Caption := About.VerLabel.Caption + APP_VERSION;
+    About.VerLabel.Caption := About.VerLabel.Caption + AppManager.AppVersion.ToString;
     About.ShowModal;
   finally
     About.Free;
   end;
+end;
+
+procedure TForm1.CButton4Click(Sender: TObject);
+begin
+  for var I := High(Images) downto 0 do
+    DeleteImage(I);
+
+  // Pages
+  ReDrawPages;
 end;
 
 procedure TForm1.CheckboxNeedChange(Sender: TObject);
@@ -918,16 +858,37 @@ begin
 end;
 
 procedure TForm1.LoadFilesClick(Sender: TObject);
-var
-  I: integer;
 begin
-  if OpenDialog.Execute then
+  if OpenFilesDialog.Execute then
     begin
-      for I := 0 to OpenDialog.Files.Count - 1 do
-        ImageList.Items.Add( OpenDialog.Files[I] );
-
-      CheckImageList;
+      const Items = StringListToArray(OpenFilesDialog.Files);
+      AddImages(Items);
     end;
+end;
+
+function TForm1.LoadPrinters: boolean;
+begin
+  const Printers = GetPrinterList;
+
+  Result := true;
+  if TArrayUtils<string>.CheckEquality(Printers, RegisteredPrinters) then
+    Exit( false );
+
+  RegisteredPrinters := Printers;
+
+  // Load list
+  Printer_List.Items := Printer.Printers;
+
+  // Load default printer
+  Printer_List.ItemIndex := Printer.PrinterIndex;
+  ReadPrinterSettings;
+end;
+
+function TForm1.LoadPrintersDialog: boolean;
+begin
+  Result := LoadPrinters;
+  if Result then
+    OpenMessage('Printers updated', 'The printer list was updated.');
 end;
 
 procedure TForm1.Image_FitModeChange(Sender: TObject);
@@ -935,26 +896,118 @@ begin
   ReDrawPages;
 end;
 
-procedure TForm1.ChangeValue(Sender: TObject);
+procedure TForm1.Image_MarginExit(Sender: TObject);
 begin
   ReDrawPages;
 end;
 
-procedure TForm1.CheckImageList;
-var
-  I: Integer;
+procedure TForm1.ControlList1BeforeDrawItem(AIndex: Integer; ACanvas: TCanvas;
+  ARect: TRect; AState: TOwnerDrawState);
 begin
-  // Delete Invalid
-  for I := ImageList.Count - 1 downto 0 do
-    if not fileexists( ImageList.Items[I] ) then
-      ImageList.Items.Delete(I);
+  Label13.Caption := Images[AIndex].FileName;
+  Label20.Caption := Images[AIndex].Extension + ' file';
 
-  // Show
-  ImageList.Visible := ImageList.Count > 0;
+  if (CImage1.Picture.Graphic <> nil) and not CImage1.Picture.Graphic.Empty then begin
+    const B = TBitMap.Create;
+    try               
+      CImage1.Picture.Graphic := B;
+    finally
+      B.Free;
+    end;
+  end;
 
-  // Reload Images
-  CacheImages;
-  ReDrawPages;
+  Label22.Caption := '';
+  if not Images[AIndex].Loaded then
+    Label22.Caption := 'PREVIEW LOADING. PLEASE WAIT'
+  else
+    if not Images[AIndex].PreviewLoaded then
+      Label22.Caption := 'PREVIEW ERROR'
+    else
+      CImage1.Picture.Graphic := Images[AIndex].Thumbnail;
+end;
+
+procedure TForm1.ControlList1ItemClick(Sender: TObject);
+begin
+  ImagesUpdated;
+end;
+
+procedure TForm1.ControlList1KeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  case Key of
+    // Delete
+    46: FXButton1.OnClick(FXButton1);
+
+    // Select all
+    65: if ssCtrl in Shift then
+      ControlList1.SelectAll;
+  end;
+end;
+
+procedure TForm1.ControlList1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  if Button = mbLeft then
+    if TControlList(Sender).ItemIndex <> -1 then begin
+      TControlList(Sender).Cursor := crDrag;
+      SetCursor( Screen.Cursors[crDrag] );
+    end;
+end;
+
+procedure TForm1.ControlList1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  TControlList(Sender).Cursor := crDefault;
+
+  const Index = TControlList(Sender).ItemIndex;
+  const HoverIndex = TControlList(Sender).HotItemIndex;
+
+  // Switch
+  case Button of
+    TMouseButton.mbLeft: begin
+      if (HoverIndex = -1) or (Index = -1) or (Index = HoverIndex) then
+        Exit;
+        
+      TArrayUtils<TImageItem>.Move(Images, Index, HoverIndex);
+
+      // UI
+      ImagesUpdated;
+
+      // Draw
+      ReDrawPages;
+    end;
+    TMouseButton.mbRight: begin
+      
+    end;
+    TMouseButton.mbMiddle: begin
+      if (Index <> HoverIndex) or not Images[Index].Loaded then
+        Exit;
+        
+      var Item: TImageItem;
+      Item.FileName := Images[Index].FileName;
+      Item.Extension := Images[Index].Extension;
+
+      // Load
+      Item.Loaded := true;
+      Item.Image := TBitMap.Create;
+      Item.Image.Assign(Images[Index].Image);
+      
+      Item.PreviewLoaded := Images[Index].PreviewLoaded;
+      if Item.PreviewLoaded then begin
+        Item.Thumbnail := TBitMap.Create;
+        Item.Thumbnail.Assign(Images[Index].Thumbnail);
+      end;
+
+      // Add
+      TArrayUtils<TImageItem>.Insert(Index+1, Item, Images);
+
+      // UI
+      ImagesUpdated;
+
+      // Draw
+      ReDrawPages;
+    end;
+  end;
 end;
 
 procedure TForm1.CSplashScreen1CompleteSetup(Sender: CSplashScreen);
@@ -972,18 +1025,37 @@ begin
   // Re enable the form
   Enabled := true;
 
-  // Open panel if no items
-  AnimatePanel( ImageList.Count = 0 );
+  // Open panel if no images are loaded
+  AnimatePanel( Length(Images) = 0 );
 
   // Unminimise
   FXMinimisePanel1.ToggleMinimised;
   FXMinimisePanel3.ToggleMinimised;
 end;
 
+procedure TForm1.DeleteImage(Index: integer);
+begin
+  with Images[Index] do
+    if Loaded then begin
+      Loaded := false;
+      Image.Free;
+      Thumbnail.Free;
+    end;
+
+  // Remove
+  TArrayUtils<TImageItem>.Delete(Index, Images);
+
+  // Notify
+  ImagesUpdated;
+end;
+
 procedure TForm1.DrawPreviewPaint(Sender: TObject);
 var
   R: TRect;
 begin
+  if PagesRendering then
+    Exit;
+
   with DrawPreview.Canvas do
     begin
       Brush.Color := Self.Color;
@@ -992,7 +1064,7 @@ begin
       // Image
       if (CurrentPage > -1) and (CurrentPage < Length(CachedPages)) then
         begin
-          R := GetDrawModeRect( DrawPreview.BoundsRect, CachedPages[CurrentPage], TDrawMode.dmCenterFit, 0);
+          R := GetDrawModeRect( DrawPreview.BoundsRect, CachedPages[CurrentPage], TDrawMode.CenterFit, 0);
 
           // Draw Page
           Brush.Color := clWhite;
@@ -1012,7 +1084,7 @@ end;
 
 procedure TForm1.EnbLegFontChange(Sender: TObject);
 begin
-  if EnbLegFont.IsChecked then
+  if EnbLegFont.Checked then
     ThemeManager.IconFont := 'Segoe MDL2 Assets'
   else
     ThemeManager.LoadFontSettings;
@@ -1028,13 +1100,26 @@ begin
   Close;
 end;
 
+procedure TForm1.Printer_CopiesExit(Sender: TObject);
+begin
+  WritePrinterSettings;
+end;
+
+procedure TForm1.EditSaveHandler(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  // Apply save procedure
+  if Key = 13 then
+    TNumberBox(Sender).OnExit(Sender);
+end;
+
 procedure TForm1.Printer_ImageSizeChange(Sender: TObject);
 begin
   // Set View Mode
   SelectedFit := TPrintFit(TComboBox(Sender).ItemIndex);
 
   // Update
-  if SelectedFit = pfCustom then
+  if SelectedFit = TPrintFit.Custom then
     begin
       if GetNewPaperSize then
         begin
@@ -1046,7 +1131,7 @@ begin
         begin
           Printer_ImageSize.Items[integer(SelectedFit)] := CUSTOM_TEXT + '...';
           Printer_ImageSize.ItemIndex := 0;
-          SelectedFit := pfFull;
+          SelectedFit := TPrintFit.Full;
         end;
     end;
 
@@ -1054,12 +1139,18 @@ begin
   ReDrawPages;
 end;
 
-procedure TForm1.ReloadPrinterChange(Sender: TObject);
+procedure TForm1.Printer_ListChange(Sender: TObject);
 begin
-  ReloadPrinter;
+  // Printer Settings
+  if LoadPrintersDialog then
+    Abort;
+
+  // Load printer
+  Printer.PrinterIndex := Printer_List.ItemIndex;
+  ReadPrinterSettings;
 end;
 
-procedure TForm1.Printer_MarginsChange(Sender: TObject);
+procedure TForm1.Printer_MarginsExit(Sender: TObject);
 begin
   PagesUpdated;
 end;
@@ -1080,7 +1171,7 @@ end;
 
 procedure TForm1.PanelAnimateClick(Sender: TObject);
 begin
-  if Slide_Menu.Left < ClientWidth - PanelAnimate.Width then
+  if Slide_Menu.Left < Main_Contain.Width - PanelAnimate.Width then
     AnimatePanel(false)
   else
     AnimatePanel(true);
@@ -1096,6 +1187,11 @@ begin
   Result := (trunc(PixelsToCm(pixels, dpi) * 10) /10).ToString + cmText;
 end;
 
+procedure TForm1.Filename_HeightExit(Sender: TObject);
+begin
+  ReDrawPages;
+end;
+
 procedure TForm1.FormActivate(Sender: TObject);
 begin
   if UIISOpen then
@@ -1105,84 +1201,49 @@ end;
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   ProgramData(false);
+
+  // Free memory
+  FreeAllocatedPages;
+
+  // Dropper
+  DragAcceptFiles(Self.Handle, false);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 var
-  A: FXDialog;
   I: Integer;
 begin
+  Slide_Menu.Left := Slide_Menu.Parent.Width;
   // Program Data
-  AppData := GetPathInAppData('Codrut Print');
   try
     LoadingSettings := true;
     ProgramData(true);
   except
-    A := FXDialog.Create;
-
     // FX Dialog
-    try
-      A.Title := 'An error occured';
-      A.Text := 'The programs data could not be loaded';
-
-      A.Buttons := [mbOk];
-
-      A.ScreenCenter := true;
-
-      A.Execute;
-    finally
-      A.Free;
-    end;
+    OpenMessage('An error occured', 'The programs data could not be loaded');
   end;
   LoadingSettings := false;
 
   // No Printer Error
   if Printer.Printers.Count = 0 then
-    begin
-      A := FXDialog.Create;
+    OpenMessage('There are no printers connected', 'Please connect a printer to continue');
 
-      // FX Dialog
-      try
-        A.Title := 'There are no printers connected';
-        A.Text := 'Please connect a printer to continue';
-
-        A.Buttons := [mbOk];
-
-        A.ScreenCenter := true;
-
-        A.Execute;
-
-        Self.Close;
-      finally
-        A.Free;
-      end;
-    end;
+  // Drag drop
+  DragAcceptFiles(Self.Handle, true);
 
   // Load Printer List
-  Printer_List.Items := Printer.Printers;
+  LoadPrinters;
 
-  // Load default settings
-  Printer_List.ItemIndex := Printer.PrinterIndex;
-  Printer_Orientation.ItemIndex := integer(Printer.Orientation);
-
-  // Load Printer
-  ReloadPrinter;
-
-  // Form
+  // UI
   OnThemeChange := ThemeChange;
-
-  Version_Text.Caption := Version_Text.Caption + APP_VERSION;
+  Version_Text.Caption := Version_Text.Caption + AppManager.AppVersion.ToString;
 
   // Load Parameter Files
+  var AddItems: TArray<string>; AddItems := [];
   for I := 1 to ParamCount do
-    begin
-      if TFile.Exists(ParamStr(I)) then
-        ImageList.Items.Add( ParamStr(I) );
-    end;
-
-  // Images
-  CheckImageList;
-  ReDrawPages;
+    if TFile.Exists(ParamStr(I)) then
+      TArrayUtils<string>.AddValue( ParamStr(I), AddItems );
+  AddImages(AddItems);
 end;
 
 procedure TForm1.FormResize(Sender: TObject);
@@ -1193,7 +1254,94 @@ begin
   Button_ViewPrev.Left := Preview_Container.Width div 2 - 5 - Button_ViewPrev.Width;
   Button_ViewNext.Left := Preview_Container.Width div 2 + 5;
 
-  IconsPanel.Top := ListHolder.Height div 2 - IconsPanel.Height div 2;
+  IconsPanel.Top := AddPicturePanel.Height div 2 - IconsPanel.Height div 2;
+end;
+
+procedure TForm1.FreeAllocatedPages;
+begin
+  for var I := 0 to High(CachedPages) do
+    FreeAndNil(CachedPages[I]);
+  CachedPages := [];
+end;
+
+procedure TForm1.FXAppManager1UpdateChecked(Sender: TObject);
+begin
+  FXButton6.Enabled := true;
+end;
+
+procedure TForm1.FXAppManager1UpdateStartCheck(Sender: TObject);
+begin
+  FXButton6.Enabled := false;
+end;
+
+procedure TForm1.FXButton1Click(Sender: TObject);
+var
+  Items: TArray<integer>;
+  I: integer;
+begin
+  // Get items
+  Items := [];
+  for I := 0 to ControlList1.ItemCount-1 do
+    if ControlList1.Selected[I] then
+      TArrayUtils<integer>.AddValue(I, Items);
+
+  // Sort
+  TArrayUtils<integer>.Sort(Items, function(A, B: integer): boolean
+    begin
+      Result := A < B;
+    end);
+
+  // Delete
+  for I := 0 to High(Items) do
+    DeleteImage(Items[I]);
+
+  // Pages
+  ReDrawPages;
+end;
+
+procedure TForm1.FXButton6Click(Sender: TObject);
+begin
+  FXAppManager1.InitiateUserUpdateCheck;
+end;
+
+procedure TForm1.FXButton7Click(Sender: TObject);
+begin
+  PrinterSetupDialog1.Execute;
+
+  // Apply
+  ReadPrinterSettings;
+
+  // Draw
+  ReDrawPages;
+end;
+
+procedure TForm1.FXButton8Click(Sender: TObject);
+begin
+  ColorDialog1.Color := PageBackground;
+  if not ColorDialog1.Execute then
+    Exit;
+
+  // Set
+  PageBackground := ColorDialog1.Color;
+
+  // Draw
+  ReDrawPages;
+
+  // UI
+  FXButton9.Enabled := PageBackground <> DEFAULT_PAGE_COLOR
+end;
+
+procedure TForm1.FXButton9Click(Sender: TObject);
+begin
+  FXButton(Sender).Enabled := false;
+  FXButton(Sender).UpdateTheme(true);
+  FXButton(Sender).Invalidate;
+
+  // Set
+  PageBackground := DEFAULT_PAGE_COLOR;
+
+  // Draw
+  ReDrawPages;
 end;
 
 function TForm1.GetNewPaperSize: boolean;
@@ -1259,56 +1407,393 @@ begin
     end;
 end;
 
-procedure TForm1.ImageListClick(Sender: TObject);
-begin
-  if ImageList.ItemIndex <> -1 then
-    ImageList.Hint := ImageList.Items[ImageList.ItemIndex]
-  else
-    ImageList.Hint := '';
-end;
-
-procedure TForm1.ImageListDragDrop(Sender, Source: TObject; X, Y: Integer);
+procedure TForm1.GetPrinterInfo;
 var
-    DropPosition, StartPosition: Integer;
-    DropPoint: TPoint;
+  PrinterDC: HDC;
 begin
-    DropPoint.X := X;
-    DropPoint.Y := Y;
-    with Source as TListBox do
-    begin
-      StartPosition := ItemAtPos(StartingPoint,True) ;
-      DropPosition := ItemAtPos(DropPoint,True) ;
+  // DPI
+  PrinterDC := Printer.Handle;
+  DPI_X := GetDeviceCaps(PrinterDC, LOGPIXELSX);
+  DPI_Y := GetDeviceCaps(PrinterDC, LOGPIXELSY);
 
-      Items.Move(StartPosition, DropPosition) ;
-
-      CheckImageList;
-    end;
+  PageSize := Rect( 0, 0, Printer.PageWidth, Printer.PageHeight );
 end;
 
-procedure TForm1.ImageListDragOver(Sender, Source: TObject; X, Y: Integer;
-  State: TDragState; var Accept: Boolean);
+function TForm1.GetPrinterList: TArray<string>;
 begin
-  Accept := Source = ImageList;
+  Result := StringListToArray( Printer.Printers );
 end;
 
-procedure TForm1.ImageListKeyUp(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
+procedure TForm1.ImagesUpdated;
 begin
-  case Key of
-    46: begin
-      ImageList.DeleteSelected;
-      CheckImageList;
-    end;
-    65: if ssCtrl in Shift then
-      ImageList.SelectAll;
+  ControlList1.ItemCount := Length(Images);
+
+  FXButton1.Enabled := ControlList1.ItemIndex <> -1;
+  FXButton3.Enabled := Length(Images) <> 0;
+end;
+
+{ TBaseTask }
+
+constructor TBaseTask.Create;
+begin
+  inherited Create(false);
+end;
+
+procedure TBaseTask.DoFinalise;
+begin
+  // nothing
+end;
+
+procedure TBaseTask.DoPrepare;
+begin
+  // nothing
+end;
+
+procedure TBaseTask.DoTask;
+begin
+  // task
+end;
+
+procedure TBaseTask.Execute;
+begin
+  inherited;
+
+  // Prep
+  Synchronize(DoPrepare);
+  if Terminated then
+    Exit;
+
+  // Task
+  try
+    DoTask;
+    Succeeded := true;
+  except
+    Succeeded := false;
   end;
+  if Terminated then
+    Exit;
+
+  // Done
+  Synchronize(DoFinalise);
 end;
 
-procedure TForm1.ImageListMouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
+{ TImageLoader }
+
+procedure TImageLoader.DoFinalise;
 begin
-  StartingPoint.X := X;
-  StartingPoint.Y := Y;
+  inherited;
+  // UI
+  Form1.ResetProgress();
+  Form1.SetEnableInteraction(true);
+
+  // Finalised
+  Form1.ReDrawPages;
+end;
+
+procedure TImageLoader.DoPrepare;
+begin
+  // UI
+  Form1.ResetProgress(true, 'Loading Images', true);
+  Form1.SetEnableInteraction(false);
+
+  ThumbnailSize := TSize.Create(Form1.CImage1.Width, Form1.CImage1.Height);
+end;
+
+procedure TImageLoader.DoTask;
+var
+  I: integer;
+begin
+  // Get Images
+  for I := High(Images) downto 0 do
+    begin
+      if Images[I].Loaded then
+        Continue;
+
+      // Attempt to load
+      try
+        LoadGraphicAsBitMap(Images[I].Path, Images[I].Image);
+      except
+        Synchronize(procedure
+          begin
+            OpenMessage('Invalid Picture', 'The following picture is invalid and will be removed:'#13 + Images[I].Path);
+            Form1.DeleteImage(I);
+          end);
+
+        Continue;
+      end;
+
+      // Create thumbnail
+      Images[I].Image.Canvas.Lock;
+      try
+        try
+          Images[I].Thumbnail := TBitMap.Create;
+          with Images[I].Thumbnail do begin
+            Height := ThumbnailSize.cy;
+            Width := round(Images[I].Image.Width / Images[I].Image.Height * Height);
+
+            Canvas.Lock;
+            try
+              Canvas.StretchDraw(Canvas.ClipRect, Images[I].Image);
+            finally
+              Canvas.Unlock;
+            end;
+          end;
+
+          Images[I].PreviewLoaded := true;
+        except
+          Images[I].PreviewLoaded := false;
+        end;
+      finally
+        Images[I].Image.Canvas.Unlock;
+      end;
+
+      // Loaded!
+      Images[I].Loaded := true;
+
+      // UI
+      TThread.Synchronize(TThread.Current, procedure begin
+        Form1.ControlList1.Invalidate;
+      end);
+    end;
+end;
+
+{ TImageDraw }
+
+procedure TImageDraw.DoFinalise;
+begin
+  // Error
+  if not Succeeded then begin
+    // Destroy
+    Form1.FreeAllocatedPages;
+
+    // Dialog
+    OpenMessage('An error occured');
+  end;
+
+  // UI
+  Form1.ResetProgress();
+  Form1.SetEnableInteraction(true);
+  PagesRendering := false;
+
+  // Update
+  Form1.PagesUpdated;
+end;
+
+procedure TImageDraw.DoPrepare;
+begin
+  // UI
+  Form1.ResetProgress(true, 'Drawing image preview', false);
+  Form1.SetEnableInteraction(false);
+
+  // Free allocated pages
+  Form1.FreeAllocatedPages;
+
+  // Data
+  with Form1 do
+    begin
+      PageCenter := CenterOnPage.Checked;
+      ExtraFilename := Extras_Filename.Checked;
+      FilenameHeight := Filename_Height.ValueInt;
+      FilenameFont := Font;
+      FitMode := TDrawMode(Image_FitMode.ItemIndex);
+      ImageMargin := Image_Margin.ValueInt;
+    end;
+end;
+
+procedure TImageDraw.DoTask;
+var
+  PrintWidth, PrintHeight,
+  TotalPictures: integer;
+
+  APage, X, Y,
+  DEF_X, DEF_Y: integer;
+  DrawR, DrawRT: TRect;
+
+  FitW, FitH: integer;
+  I: Integer;
+
+  OverfillX, OverfillY: boolean;
+
+  A: FXDialog;
+begin
+  // Initialize
+  FitW := 1;
+  FitH := 1;
+
+  // Get Image Fit Settings
+  case SelectedFit of
+    TPrintFit.Full: begin
+      FitW := PageSize.Width;
+      FitH := PageSize.Height;
+    end;
+    TPrintFit.Split: begin
+      if Printer.Orientation = poPortrait then
+        begin
+          FitW := PageSize.Width;
+          FitH := PageSize.Height div 2;
+        end
+      else
+        begin
+          FitW := PageSize.Width div 2;
+          FitH := PageSize.Height;
+        end;
+    end;
+    TPrintFit.Rule4: begin
+      FitW := PageSize.Width div 2;
+      FitH := PageSize.Height div 2;
+    end;
+    TPrintFit.Rule9: begin
+      FitW := PageSize.Width div 3;
+      FitH := PageSize.Height div 3;
+    end;
+    TPrintFit.Contact: begin
+      if Printer.Orientation = poPortrait then
+        begin
+          FitW := PageSize.Width div 5;
+          FitH := PageSize.Height div 7;
+        end
+      else
+        begin
+          FitW := PageSize.Width div 7;
+          FitH := PageSize.Height div 5;
+        end;
+    end;
+    TPrintFit.Custom: begin
+      FitW := CustomFit.X;
+      FitH := CustomFit.Y;
+    end;
+  end;
+
+  // Invalid Size
+  if (FitW <= 0) or (FitH <= 0) then
+    begin
+      A := FXDialog.Create;
+
+      // FX Dialog
+      try
+        Synchronize(procedure
+          begin
+            OpenMessage('Invalid Picture Size', 'The picture size cannot be 0 or lower!');
+          end);
+
+        Exit;
+      finally
+        A.Free;
+      end;
+    end;
+
+  // Prepare
+  APage := 0;
+
+  PrintWidth := PageSize.Width;
+  PrintHeight := PageSize.Height;
+
+  TotalPictures := Length(Images);
+
+  // Default Starting Points
+  if PageCenter then
+    begin
+      DEF_X := (PrintWidth mod FitW) div 2;
+      DEF_Y := (PrintHeight mod FitH) div 2;
+    end
+  else
+    begin
+      DEF_X := 0;
+      DEF_Y := 0;
+    end;
+
+  // Default Starting Values
+  X := DEF_X;
+  Y := DEF_Y;
+
+  // Redraw Cached Bitmaps
+  for I := 0 to TotalPictures-1 do
+    begin
+      if not Images[I].Loaded then
+        Continue;
+      const CurrentImage = Images[I].Image;
+
+      // Progress
+      Form1.SetProgress((TotalPictures)/TotalPictures*100);
+
+      // Overfill Width
+      OverfillX := X + FitW > PrintWidth;
+
+      if OverfillX then
+        begin
+          X := DEF_X;
+          Y := Y + FitH;
+        end;
+
+      // Overfill Height
+      OverfillY := Y + FitH > PrintHeight;
+
+      if OverfillY then
+        begin
+          X := DEF_X;
+          Y := DEF_Y;
+
+          // Next Page
+          Inc(APage);
+        end;
+
+      // Draw Rect
+      DrawR := Rect( X, Y, X + FitW, Y + FitH );
+
+      // Increase Size
+      if APage > High(CachedPages) then begin
+        // Create bitmap (threaded)
+        Form1.AllocateNewPage(PrintWidth, PrintHeight);
+
+        // Initiate page
+        CachedPages[APage].Canvas.Lock;
+        with CachedPages[APage].Canvas do begin
+          // Draw
+          Brush.Color := PageBackground;
+          FillRect(ClipRect);
+        end;
+      end;
+
+      // File Name
+      if ExtraFilename then
+        begin
+          DrawRT := DrawR;
+          DrawR.Height := DrawR.Height - FilenameHeight;
+
+          DrawRT.Top := DrawR.Bottom;
+
+          with CachedPages[APage].Canvas do begin
+            const Text = Images[I].FileName;
+
+            Font.Assign(FilenameFont);
+            Font.Color := FontColorForBackground(PageBackground);
+
+            Font.Height := GetMaxFontHeight(CachedPages[APage].Canvas,
+                            Text, DrawRT.Width, DrawRT.Height);
+
+            DrawTextRect( CachedPages[APage].Canvas, DrawRT, Text,
+              [TTextFlag.Center, TTextFlag.VerticalCenter]  );
+          end;
+        end;
+
+      // Ready, Set, Draw!
+      with CachedPages[APage] do begin
+        CurrentImage.Canvas.Lock;
+        try
+          DrawImageInRect(Canvas, DrawR, CurrentImage,
+            FitMode, ImageMargin, true);
+        finally
+          CurrentImage.Canvas.Unlock
+        end;
+      end;
+
+      // Time for the next page
+      X := X + FitW;
+    end;
+
+  // Unlock all canvases
+  for I := 0 to High(CachedPages) do
+    CachedPages[I].Canvas.Unlock;
 end;
 
 end.

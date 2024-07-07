@@ -7,7 +7,8 @@ uses
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   CFX.Forms, Vcl.Imaging.pngimage, Cod.Visual.Image, Vcl.ExtCtrls,
   CFX.ThemeManager, CFX.Types, Vcl.StdCtrls, Vcl.TitleBarCtrls,
-  Cod.Visual.Button, Cod.Visual.SplashScreen, ShellAPI, CFX.BlurMaterial;
+  Cod.Visual.Button, Cod.Visual.SplashScreen, ShellAPI, CFX.BlurMaterial,
+  CFX.Controls, CFX.Button, CFX.Panels, Cod.SysUtils;
 
 type
   TAbout = class(FXForm)
@@ -19,13 +20,13 @@ type
     TitleBarPanel1: TTitleBarPanel;
     Label3: TLabel;
     FXBlurMaterial1: FXBlurMaterial;
-    Panel1: TPanel;
-    CButton4: CButton;
+    Shape2: TShape;
+    FXPanel1: FXPanel;
     CButton2: CButton;
     CButton3: CButton;
+    CButton4: CButton;
     CButton5: CButton;
-    Shape2: TShape;
-    CButton1: CButton;
+    FXButton1: FXButton;
     procedure FormCreate(Sender: TObject);
     procedure CButton2Click(Sender: TObject);
     procedure FXBlurMaterial1MouseDown(Sender: TObject; Button: TMouseButton;
@@ -49,13 +50,13 @@ var
   URL: string;
 begin
   case CButton(Sender).Tag of
-    1: URL := 'mailto:petculescucodrut@outlook.com';
-    2: URL := 'https://www.codrutsoftware.cf';
+    1: URL := 'mailto:codrut@codrutsoft.com';
+    2: URL := 'https://www.codrutsoft.com';
     3: URL := 'https://www.twitter.com/LAVAplanks';
-    4: URL := 'https://www.youtube.com/LavaTechnology';
+    4: URL := 'https://www.youtube.com/@codrutsoft';
   end;
 
-  ShellExecute(0, 'open', PChar(URL), nil, nil, 0);
+  ShellRun(URL, true);
 end;
 
 procedure TAbout.FormCreate(Sender: TObject);

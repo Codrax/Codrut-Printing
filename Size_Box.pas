@@ -38,6 +38,7 @@ type
     procedure SelectPreset(Sender: TObject);
     procedure KeyDetection(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure CButton5Click(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
 
@@ -161,6 +162,8 @@ end;
 
 procedure TSelectSize.DrawBoxMouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
+var
+  NewRect: TRect;
 begin
   if MouseIsDown then
     begin
@@ -172,10 +175,14 @@ begin
         end;
 
       // Ctrl
+      NewRect := TheRect;
       if ssCtrl in Shift then
-        TheRect.Offset(X - LastPos.X, Y - LastPos.Y)
+        NewRect.Offset(X - LastPos.X, Y - LastPos.Y)
       else
-        TheRect.BottomRight := Point(X, Y);
+        NewRect.BottomRight := Point(X, Y);
+
+      if TControl(Sender).ClientRect.Contains(NewRect) then
+        TheRect := NewRect;
     end;
 
   // Notif
@@ -246,6 +253,11 @@ begin
   PenDraw.SetDashCap(DashCapFlat);
 end;
 
+procedure TSelectSize.FormDestroy(Sender: TObject);
+begin
+  PenDraw.Free;
+end;
+
 procedure TSelectSize.KeyDetection(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -274,7 +286,7 @@ end;
 
 procedure TSelectSize.Button_SaveClick(Sender: TObject);
 begin
-  NewSize := Point(round(TheRect.Width * Multiplier), round(TheRect.Height * Multiplier));
+  NewSize := Point(abs(round(TheRect.Width * Multiplier)), abs(round(TheRect.Height * Multiplier)));
 end;
 
 end.

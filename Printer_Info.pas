@@ -6,18 +6,16 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Cod.Visual.Button,
   CFX.Forms, CFX.Types, Vcl.StdCtrls, Vcl.Imaging.pngimage, Cod.Visual.Image,
-  Vcl.Printers, CFX.ThemeManager, ShellAPI, Cod.Types, Winspool, Cod.Printing;
+  Vcl.Printers, CFX.ThemeManager, ShellAPI, Cod.Types, Winspool, Cod.Printing,
+  CFX.Controls, CFX.Button, CFX.Panels;
 
 type
   TPrinterInfo = class(FXForm)
-    BottomPanel: TPanel;
-    Printer_Print: CButton;
     Label1: TLabel;
     CImage1: CImage;
     Label2: TLabel;
     Memo1: TMemo;
     Label3: TLabel;
-    CButton1: CButton;
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
@@ -25,6 +23,9 @@ type
     Label8: TLabel;
     Image1: TImage;
     Label9: TLabel;
+    FXPanel1: FXPanel;
+    FXButton1: FXButton;
+    FXButton2: FXButton;
     procedure CButton1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -51,7 +52,7 @@ uses
 
 procedure TPrinterInfo.CButton1Click(Sender: TObject);
 begin
-  Form1.ReloadPrinter;
+  Form1.ReadPrinterSettings;
   GetInfo;
 end;
 
@@ -122,7 +123,6 @@ begin
       TLabel(Components[i]).Font.Color := ThemeManager.SystemColor.ForeGround;
 
   Memo1.Color := ThemeManager.SystemColor.BackGroundInterior;
-  BottomPanel.Color := ThemeManager.SystemColor.BackGroundInterior;
 end;
 
 end.
