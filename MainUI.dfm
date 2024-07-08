@@ -924,7 +924,7 @@ object Form1: TForm1
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 252
+        Width = 269
         Height = 60
         Align = alTop
         BevelOuter = bvNone
@@ -970,7 +970,6 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #62829
         Image.SelectImageIndex = 0
-        ExplicitWidth = 269
         object Label1: TLabel
           Left = 16
           Top = 70
@@ -1089,7 +1088,7 @@ object Form1: TForm1
         AlignWithMargins = True
         Left = 3
         Top = 69
-        Width = 252
+        Width = 269
         Height = 60
         Align = alTop
         BevelOuter = bvNone
@@ -1135,7 +1134,6 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #59734
         Image.SelectImageIndex = 0
-        ExplicitWidth = 269
         object Label7: TLabel
           Left = 16
           Top = 74
@@ -1314,7 +1312,7 @@ object Form1: TForm1
         AlignWithMargins = True
         Left = 3
         Top = 135
-        Width = 252
+        Width = 269
         Height = 60
         Align = alTop
         BevelOuter = bvNone
@@ -1360,7 +1358,6 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #62830
         Image.SelectImageIndex = 0
-        ExplicitWidth = 269
         object Label8: TLabel
           Left = 16
           Top = 64
@@ -1472,7 +1469,7 @@ object Form1: TForm1
         AlignWithMargins = True
         Left = 3
         Top = 267
-        Width = 252
+        Width = 269
         Height = 60
         Align = alTop
         BevelOuter = bvNone
@@ -1518,7 +1515,6 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #62836
         Image.SelectImageIndex = 0
-        ExplicitWidth = 269
         object Label9: TLabel
           Left = 16
           Top = 72
@@ -1598,6 +1594,7 @@ object Form1: TForm1
           MaxValue = 100000.000000000000000000
           ParentFont = False
           TabOrder = 1
+          Value = 0.200000000000000000
           OnExit = Image_MarginExit
           OnKeyUp = EditSaveHandler
         end
@@ -1631,7 +1628,7 @@ object Form1: TForm1
         AlignWithMargins = True
         Left = 3
         Top = 333
-        Width = 252
+        Width = 269
         Height = 60
         Align = alTop
         BevelOuter = bvNone
@@ -1677,9 +1674,8 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #59718
         Image.SelectImageIndex = 0
-        ExplicitWidth = 269
         DesignSize = (
-          252
+          269
           60)
         object Label2: TLabel
           Left = 20
@@ -1846,7 +1842,6 @@ object Form1: TForm1
           Anchors = [akTop, akRight]
           TabOrder = 3
           OnClick = CButton3Click
-          ExplicitLeft = 20
         end
         object FXButton6: FXButton
           Left = 3
@@ -1893,14 +1888,13 @@ object Form1: TForm1
           Anchors = [akTop, akRight]
           TabOrder = 4
           OnClick = FXButton6Click
-          ExplicitLeft = 20
         end
       end
       object FXMinimisePanel6: FXMinimisePanel
         AlignWithMargins = True
         Left = 3
         Top = 201
-        Width = 252
+        Width = 269
         Height = 60
         Align = alTop
         BevelOuter = bvNone
@@ -1946,7 +1940,6 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #60538
         Image.SelectImageIndex = 0
-        ExplicitWidth = 269
         object Label4: TLabel
           Left = 16
           Top = 66
@@ -2021,7 +2014,7 @@ object Form1: TForm1
           MaxValue = 1000.000000000000000000
           ParentFont = False
           TabOrder = 0
-          Value = 2.500000000000000000
+          Value = 1.000000000000000000
           OnExit = Filename_HeightExit
           OnKeyUp = EditSaveHandler
         end

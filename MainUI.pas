@@ -842,7 +842,7 @@ begin
       with Images[TArrayUtils<TImageItem>.AddValue(Images)] do begin
         FileName := ExtractFileName(Files[I]);
         Path := Files[I];
-        Extension := Uppercase(ExtractFileName(Files[I])).Remove(0, 1);
+        Extension := Uppercase(ExtractFileExt(Files[I])).Remove(0, 1);
 
         Loaded := false;
       end;
