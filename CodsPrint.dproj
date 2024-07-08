@@ -120,6 +120,7 @@
         <VerInfo_Release>3</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Icon_MainIcon>CodsPrint_Icon.ico</Icon_MainIcon>
+        <Debugger_RunParams>&quot;C:\Test\epic juan.jpg&quot; &quot;C:\Test\test.webp&quot; &quot;C:\Test\Transcoded_000.jpeg&quot;</Debugger_RunParams>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -142,6 +143,7 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <Icon_MainIcon>CodsPrint_Icon.ico</Icon_MainIcon>
+        <Debugger_RunParams>&quot;C:\Test\epic juan.jpg&quot; &quot;C:\Test\test.webp&quot; &quot;C:\Test\Transcoded_000.jpeg&quot;</Debugger_RunParams>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">

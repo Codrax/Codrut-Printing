@@ -54,10 +54,6 @@ object Form1: TForm1
       ParentDoubleBuffered = False
       ShowCaption = False
       TabOrder = 0
-      ExplicitLeft = 30
-      ExplicitTop = 25
-      ExplicitWidth = 749
-      ExplicitHeight = 472
       object Panel4: TPanel
         AlignWithMargins = True
         Left = 2
@@ -74,8 +70,6 @@ object Form1: TForm1
         ParentBackground = False
         ShowCaption = False
         TabOrder = 0
-        ExplicitWidth = 745
-        ExplicitHeight = 468
         object DrawPreview: TPaintBox
           Left = 0
           Top = 0
@@ -100,8 +94,6 @@ object Form1: TForm1
           ParentBackground = False
           ShowCaption = False
           TabOrder = 0
-          ExplicitTop = 427
-          ExplicitWidth = 745
           object Label15: TLabel
             AlignWithMargins = True
             Left = 42
@@ -334,182 +326,13 @@ object Form1: TForm1
               ExplicitTop = 6
             end
           end
-          object CPanel3: CPanel
-            AlignWithMargins = True
-            Left = 3
-            Top = 424
-            Width = 355
-            Height = 41
-            Align = alBottom
-            BevelOuter = bvNone
-            Caption = 'CPanel1'
-            ParentBackground = False
-            ParentColor = True
-            ShowCaption = False
-            TabOrder = 1
-            UseAccentColor = None
-            object FXButton1: FXButton
-              AlignWithMargins = True
-              Left = 145
-              Top = 0
-              Width = 140
-              Height = 41
-              Margins.Left = 0
-              Margins.Top = 0
-              Margins.Right = 5
-              Margins.Bottom = 0
-              Enabled = False
-              CustomColors.Enabled = False
-              CustomColors.Accent = 13924352
-              CustomColors.LightBackGround = 15987699
-              CustomColors.LightForeGround = 1776410
-              CustomColors.DarkBackGround = 2105376
-              CustomColors.DarkForeGround = clWhite
-              CustomColors.LightBackGroundInterior = 16514043
-              CustomColors.DarkBackGroundInterior = 2829099
-              CustomButtonColors.Enabled = False
-              CustomButtonColors.Accent = clBlack
-              CustomButtonColors.LightBackgroundNone = clBlack
-              CustomButtonColors.LightBackgroundHover = clBlack
-              CustomButtonColors.LightBackgroundPress = clBlack
-              CustomButtonColors.LightForeGroundNone = clBlack
-              CustomButtonColors.LightForeGroundHover = clBlack
-              CustomButtonColors.LightForeGroundPress = clBlack
-              CustomButtonColors.DarkBackGroundNone = clBlack
-              CustomButtonColors.DarkBackGroundHover = clBlack
-              CustomButtonColors.DarkBackGroundPress = clBlack
-              CustomButtonColors.DarkForeGroundNone = clBlack
-              CustomButtonColors.DarkForeGroundHover = clBlack
-              CustomButtonColors.DarkForeGroundPress = clBlack
-              Text = 'Delete'
-              Image.Enabled = True
-              Image.SelectSegoe = #59213
-              Image.SelectImageIndex = 0
-              ImageScale = 1.250000000000000000
-              ButtonKind = Flat
-              LineWidth = 3.000000000000000000
-              StateImage.SelectSegoe = #59188
-              StateImage.SelectImageIndex = 0
-              Align = alLeft
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = 22
-              Font.Name = 'Segoe UI'
-              Font.Style = []
-              TabOrder = 0
-              OnClick = FXButton1Click
-            end
-            object FXButton2: FXButton
-              AlignWithMargins = True
-              Left = 0
-              Top = 0
-              Width = 140
-              Height = 41
-              Margins.Left = 0
-              Margins.Top = 0
-              Margins.Right = 5
-              Margins.Bottom = 0
-              CustomColors.Enabled = False
-              CustomColors.Accent = 13924352
-              CustomColors.LightBackGround = 15987699
-              CustomColors.LightForeGround = 1776410
-              CustomColors.DarkBackGround = 2105376
-              CustomColors.DarkForeGround = clWhite
-              CustomColors.LightBackGroundInterior = 16514043
-              CustomColors.DarkBackGroundInterior = 2829099
-              CustomButtonColors.Enabled = False
-              CustomButtonColors.Accent = clBlack
-              CustomButtonColors.LightBackgroundNone = clBlack
-              CustomButtonColors.LightBackgroundHover = clBlack
-              CustomButtonColors.LightBackgroundPress = clBlack
-              CustomButtonColors.LightForeGroundNone = clBlack
-              CustomButtonColors.LightForeGroundHover = clBlack
-              CustomButtonColors.LightForeGroundPress = clBlack
-              CustomButtonColors.DarkBackGroundNone = clBlack
-              CustomButtonColors.DarkBackGroundHover = clBlack
-              CustomButtonColors.DarkBackGroundPress = clBlack
-              CustomButtonColors.DarkForeGroundNone = clBlack
-              CustomButtonColors.DarkForeGroundHover = clBlack
-              CustomButtonColors.DarkForeGroundPress = clBlack
-              Text = 'Add files'
-              Image.Enabled = True
-              Image.SelectSegoe = #59171
-              Image.SelectImageIndex = 0
-              ImageScale = 1.250000000000000000
-              LineWidth = 3.000000000000000000
-              StateImage.SelectSegoe = #59188
-              StateImage.SelectImageIndex = 0
-              Align = alLeft
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = 22
-              Font.Name = 'Segoe UI'
-              Font.Style = []
-              TabOrder = 1
-              OnClick = LoadFilesClick
-            end
-            object FXButton3: FXButton
-              AlignWithMargins = True
-              Left = 290
-              Top = 0
-              Width = 60
-              Height = 41
-              Hint = 'Clear pictures'
-              Margins.Left = 0
-              Margins.Top = 0
-              Margins.Right = 5
-              Margins.Bottom = 0
-              Enabled = False
-              CustomColors.Enabled = False
-              CustomColors.Accent = 13924352
-              CustomColors.LightBackGround = 15987699
-              CustomColors.LightForeGround = 1776410
-              CustomColors.DarkBackGround = 2105376
-              CustomColors.DarkForeGround = clWhite
-              CustomColors.LightBackGroundInterior = 16514043
-              CustomColors.DarkBackGroundInterior = 2829099
-              CustomButtonColors.Enabled = False
-              CustomButtonColors.Accent = clBlack
-              CustomButtonColors.LightBackgroundNone = clBlack
-              CustomButtonColors.LightBackgroundHover = clBlack
-              CustomButtonColors.LightBackgroundPress = clBlack
-              CustomButtonColors.LightForeGroundNone = clBlack
-              CustomButtonColors.LightForeGroundHover = clBlack
-              CustomButtonColors.LightForeGroundPress = clBlack
-              CustomButtonColors.DarkBackGroundNone = clBlack
-              CustomButtonColors.DarkBackGroundHover = clBlack
-              CustomButtonColors.DarkBackGroundPress = clBlack
-              CustomButtonColors.DarkForeGroundNone = clBlack
-              CustomButtonColors.DarkForeGroundHover = clBlack
-              CustomButtonColors.DarkForeGroundPress = clBlack
-              Text = ''
-              Image.Enabled = True
-              Image.SelectSegoe = #59153
-              Image.SelectImageIndex = 0
-              ImageScale = 1.250000000000000000
-              ButtonKind = Flat
-              LineWidth = 3.000000000000000000
-              StateImage.SelectSegoe = #59188
-              StateImage.SelectImageIndex = 0
-              Align = alClient
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = 22
-              Font.Name = 'Segoe UI'
-              Font.Style = []
-              ShowHint = True
-              ParentShowHint = False
-              TabOrder = 2
-              OnClick = CButton4Click
-            end
-          end
           object ListHolder: TPanel
             Tag = 3
             AlignWithMargins = True
             Left = 10
             Top = 57
             Width = 341
-            Height = 354
+            Height = 344
             Margins.Left = 10
             Margins.Top = 10
             Margins.Right = 10
@@ -520,12 +343,12 @@ object Form1: TForm1
             Color = 14408667
             ParentBackground = False
             ShowCaption = False
-            TabOrder = 2
+            TabOrder = 1
             object AddPicturePanel: TPanel
               Left = 0
               Top = 0
               Width = 341
-              Height = 354
+              Height = 344
               Cursor = crHandPoint
               Align = alClient
               BevelOuter = bvNone
@@ -592,7 +415,7 @@ object Form1: TForm1
               Left = 2
               Top = 2
               Width = 337
-              Height = 350
+              Height = 340
               Margins.Left = 2
               Margins.Top = 2
               Margins.Right = 2
@@ -607,11 +430,14 @@ object Form1: TForm1
               ItemMargins.Bottom = 0
               ColumnLayout = cltMultiTopToBottom
               ParentColor = False
+              ParentShowHint = False
               MultiSelect = True
+              ShowHint = True
               TabOrder = 1
               OnBeforeDrawItem = ControlList1BeforeDrawItem
               OnKeyUp = ControlList1KeyUp
               OnMouseDown = ControlList1MouseDown
+              OnMouseMove = ControlList1MouseMove
               OnMouseUp = ControlList1MouseUp
               OnItemClick = ControlList1ItemClick
               object Label22: TLabel
@@ -673,6 +499,190 @@ object Form1: TForm1
                 ParentFont = False
                 ExplicitWidth = 81
               end
+            end
+          end
+          object FXPanel2: FXPanel
+            AlignWithMargins = True
+            Left = 3
+            Top = 414
+            Width = 355
+            Height = 51
+            Align = alBottom
+            BevelOuter = bvNone
+            Caption = 'FXPanel2'
+            Color = 14408667
+            FullRepaint = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 1776410
+            Font.Height = -12
+            Font.Name = 'Segoe UI'
+            Font.Style = []
+            ParentBackground = False
+            ParentColor = False
+            ParentFont = False
+            TabOrder = 2
+            CustomColors.Enabled = True
+            CustomColors.Accent = 13924352
+            CustomColors.LightBackGround = 14408667
+            CustomColors.LightForeGround = 1776410
+            CustomColors.DarkBackGround = 3684408
+            CustomColors.DarkForeGround = clWhite
+            CustomColors.LightBackGroundInterior = 16514043
+            CustomColors.DarkBackGroundInterior = 2829099
+            AccentLineWidth = 8
+            object FXButton2: FXButton
+              AlignWithMargins = True
+              Left = 5
+              Top = 5
+              Width = 140
+              Height = 41
+              Margins.Left = 5
+              Margins.Top = 5
+              Margins.Right = 5
+              Margins.Bottom = 5
+              CustomColors.Enabled = False
+              CustomColors.Accent = 13924352
+              CustomColors.LightBackGround = 15987699
+              CustomColors.LightForeGround = 1776410
+              CustomColors.DarkBackGround = 2105376
+              CustomColors.DarkForeGround = clWhite
+              CustomColors.LightBackGroundInterior = 16514043
+              CustomColors.DarkBackGroundInterior = 2829099
+              CustomButtonColors.Enabled = False
+              CustomButtonColors.Accent = clBlack
+              CustomButtonColors.LightBackgroundNone = clBlack
+              CustomButtonColors.LightBackgroundHover = clBlack
+              CustomButtonColors.LightBackgroundPress = clBlack
+              CustomButtonColors.LightForeGroundNone = clBlack
+              CustomButtonColors.LightForeGroundHover = clBlack
+              CustomButtonColors.LightForeGroundPress = clBlack
+              CustomButtonColors.DarkBackGroundNone = clBlack
+              CustomButtonColors.DarkBackGroundHover = clBlack
+              CustomButtonColors.DarkBackGroundPress = clBlack
+              CustomButtonColors.DarkForeGroundNone = clBlack
+              CustomButtonColors.DarkForeGroundHover = clBlack
+              CustomButtonColors.DarkForeGroundPress = clBlack
+              Text = 'Add files'
+              Image.Enabled = True
+              Image.SelectSegoe = #59171
+              Image.SelectImageIndex = 0
+              ImageScale = 1.250000000000000000
+              LineWidth = 3.000000000000000000
+              StateImage.SelectSegoe = #59188
+              StateImage.SelectImageIndex = 0
+              Align = alLeft
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = 22
+              Font.Name = 'Segoe UI'
+              Font.Style = []
+              TabOrder = 0
+              OnClick = LoadFilesClick
+            end
+            object FXButton1: FXButton
+              AlignWithMargins = True
+              Left = 155
+              Top = 5
+              Width = 135
+              Height = 41
+              Margins.Left = 5
+              Margins.Top = 5
+              Margins.Right = 5
+              Margins.Bottom = 5
+              Enabled = False
+              CustomColors.Enabled = False
+              CustomColors.Accent = 13924352
+              CustomColors.LightBackGround = 15987699
+              CustomColors.LightForeGround = 1776410
+              CustomColors.DarkBackGround = 2105376
+              CustomColors.DarkForeGround = clWhite
+              CustomColors.LightBackGroundInterior = 16514043
+              CustomColors.DarkBackGroundInterior = 2829099
+              CustomButtonColors.Enabled = False
+              CustomButtonColors.Accent = clBlack
+              CustomButtonColors.LightBackgroundNone = clBlack
+              CustomButtonColors.LightBackgroundHover = clBlack
+              CustomButtonColors.LightBackgroundPress = clBlack
+              CustomButtonColors.LightForeGroundNone = clBlack
+              CustomButtonColors.LightForeGroundHover = clBlack
+              CustomButtonColors.LightForeGroundPress = clBlack
+              CustomButtonColors.DarkBackGroundNone = clBlack
+              CustomButtonColors.DarkBackGroundHover = clBlack
+              CustomButtonColors.DarkBackGroundPress = clBlack
+              CustomButtonColors.DarkForeGroundNone = clBlack
+              CustomButtonColors.DarkForeGroundHover = clBlack
+              CustomButtonColors.DarkForeGroundPress = clBlack
+              Text = 'Delete'
+              Image.Enabled = True
+              Image.SelectSegoe = #59213
+              Image.SelectImageIndex = 0
+              ImageScale = 1.250000000000000000
+              ButtonKind = Flat
+              LineWidth = 3.000000000000000000
+              StateImage.SelectSegoe = #59188
+              StateImage.SelectImageIndex = 0
+              Align = alLeft
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = 22
+              Font.Name = 'Segoe UI'
+              Font.Style = []
+              TabOrder = 1
+              OnClick = FXButton1Click
+            end
+            object FXButton3: FXButton
+              AlignWithMargins = True
+              Left = 300
+              Top = 5
+              Width = 50
+              Height = 41
+              Hint = 'Clear pictures'
+              Margins.Left = 5
+              Margins.Top = 5
+              Margins.Right = 5
+              Margins.Bottom = 5
+              Enabled = False
+              CustomColors.Enabled = False
+              CustomColors.Accent = 13924352
+              CustomColors.LightBackGround = 15987699
+              CustomColors.LightForeGround = 1776410
+              CustomColors.DarkBackGround = 2105376
+              CustomColors.DarkForeGround = clWhite
+              CustomColors.LightBackGroundInterior = 16514043
+              CustomColors.DarkBackGroundInterior = 2829099
+              CustomButtonColors.Enabled = False
+              CustomButtonColors.Accent = clBlack
+              CustomButtonColors.LightBackgroundNone = clBlack
+              CustomButtonColors.LightBackgroundHover = clBlack
+              CustomButtonColors.LightBackgroundPress = clBlack
+              CustomButtonColors.LightForeGroundNone = clBlack
+              CustomButtonColors.LightForeGroundHover = clBlack
+              CustomButtonColors.LightForeGroundPress = clBlack
+              CustomButtonColors.DarkBackGroundNone = clBlack
+              CustomButtonColors.DarkBackGroundHover = clBlack
+              CustomButtonColors.DarkBackGroundPress = clBlack
+              CustomButtonColors.DarkForeGroundNone = clBlack
+              CustomButtonColors.DarkForeGroundHover = clBlack
+              CustomButtonColors.DarkForeGroundPress = clBlack
+              Text = ''
+              Image.Enabled = True
+              Image.SelectSegoe = #59153
+              Image.SelectImageIndex = 0
+              ImageScale = 1.250000000000000000
+              ButtonKind = Flat
+              LineWidth = 3.000000000000000000
+              StateImage.SelectSegoe = #59188
+              StateImage.SelectImageIndex = 0
+              Align = alClient
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = 22
+              Font.Name = 'Segoe UI'
+              Font.Style = []
+              ShowHint = True
+              ParentShowHint = False
+              TabOrder = 2
+              OnClick = CButton4Click
             end
           end
         end
@@ -914,7 +924,7 @@ object Form1: TForm1
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 269
+        Width = 252
         Height = 60
         Align = alTop
         BevelOuter = bvNone
@@ -960,6 +970,7 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #62829
         Image.SelectImageIndex = 0
+        ExplicitWidth = 269
         object Label1: TLabel
           Left = 16
           Top = 70
@@ -1078,7 +1089,7 @@ object Form1: TForm1
         AlignWithMargins = True
         Left = 3
         Top = 69
-        Width = 269
+        Width = 252
         Height = 60
         Align = alTop
         BevelOuter = bvNone
@@ -1124,7 +1135,7 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #59734
         Image.SelectImageIndex = 0
-        ExplicitTop = 184
+        ExplicitWidth = 269
         object Label7: TLabel
           Left = 16
           Top = 74
@@ -1196,6 +1207,7 @@ object Form1: TForm1
           Top = 175
           Width = 201
           Height = 29
+          DisplayFormat = '0 copies'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -1302,7 +1314,7 @@ object Form1: TForm1
         AlignWithMargins = True
         Left = 3
         Top = 135
-        Width = 269
+        Width = 252
         Height = 60
         Align = alTop
         BevelOuter = bvNone
@@ -1348,7 +1360,7 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #62830
         Image.SelectImageIndex = 0
-        ExplicitTop = 250
+        ExplicitWidth = 269
         object Label8: TLabel
           Left = 16
           Top = 64
@@ -1449,6 +1461,7 @@ object Form1: TForm1
           Items.Strings = (
             'Full Page Photo'
             'Split in 2'
+            'Split in 3'
             'Rule of 4'
             'Rule of 9'
             'Contact Sheet (35 Images)'
@@ -1459,7 +1472,7 @@ object Form1: TForm1
         AlignWithMargins = True
         Left = 3
         Top = 267
-        Width = 269
+        Width = 252
         Height = 60
         Align = alTop
         BevelOuter = bvNone
@@ -1505,7 +1518,7 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #62836
         Image.SelectImageIndex = 0
-        ExplicitTop = 382
+        ExplicitWidth = 269
         object Label9: TLabel
           Left = 16
           Top = 72
@@ -1556,15 +1569,17 @@ object Form1: TForm1
           Top = 105
           Width = 89
           Height = 29
+          DisplayFormat = '0.00 cm'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
           Font.Name = 'Segoe UI'
           Font.Style = []
-          MaxValue = 1000.000000000000000000
+          Mode = nbmFloat
+          MaxValue = 100000.000000000000000000
           ParentFont = False
           TabOrder = 0
-          Value = 10.000000000000000000
+          Value = 1.100000000000000000
           OnExit = Printer_MarginsExit
           OnKeyUp = EditSaveHandler
         end
@@ -1573,15 +1588,16 @@ object Form1: TForm1
           Top = 105
           Width = 89
           Height = 29
+          DisplayFormat = '0.00 cm'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
           Font.Name = 'Segoe UI'
           Font.Style = []
-          MaxValue = 1000.000000000000000000
+          Mode = nbmFloat
+          MaxValue = 100000.000000000000000000
           ParentFont = False
           TabOrder = 1
-          Value = 5.000000000000000000
           OnExit = Image_MarginExit
           OnKeyUp = EditSaveHandler
         end
@@ -1615,7 +1631,7 @@ object Form1: TForm1
         AlignWithMargins = True
         Left = 3
         Top = 333
-        Width = 269
+        Width = 252
         Height = 60
         Align = alTop
         BevelOuter = bvNone
@@ -1661,9 +1677,9 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #59718
         Image.SelectImageIndex = 0
-        ExplicitTop = 448
+        ExplicitWidth = 269
         DesignSize = (
-          269
+          252
           60)
         object Label2: TLabel
           Left = 20
@@ -1787,7 +1803,7 @@ object Form1: TForm1
           TabOrder = 2
         end
         object FXButton5: FXButton
-          Left = 20
+          Left = 3
           Top = 295
           Width = 229
           Height = 35
@@ -1830,9 +1846,10 @@ object Form1: TForm1
           Anchors = [akTop, akRight]
           TabOrder = 3
           OnClick = CButton3Click
+          ExplicitLeft = 20
         end
         object FXButton6: FXButton
-          Left = 20
+          Left = 3
           Top = 336
           Width = 229
           Height = 35
@@ -1876,13 +1893,14 @@ object Form1: TForm1
           Anchors = [akTop, akRight]
           TabOrder = 4
           OnClick = FXButton6Click
+          ExplicitLeft = 20
         end
       end
       object FXMinimisePanel6: FXMinimisePanel
         AlignWithMargins = True
         Left = 3
         Top = 201
-        Width = 269
+        Width = 252
         Height = 60
         Align = alTop
         BevelOuter = bvNone
@@ -1898,7 +1916,7 @@ object Form1: TForm1
         ShowCaption = False
         TabOrder = 7
         TabStop = True
-        DefaultHeight = 225
+        DefaultHeight = 250
         CustomColors.Enabled = False
         CustomColors.Accent = 13924352
         CustomColors.LightBackGround = 15987699
@@ -1928,14 +1946,14 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #60538
         Image.SelectImageIndex = 0
-        ExplicitTop = 316
+        ExplicitWidth = 269
         object Label4: TLabel
           Left = 16
           Top = 66
           Width = 201
           Height = 27
           AutoSize = False
-          Caption = 'Filename in photos'
+          Caption = 'Include name below images'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -15
@@ -1946,11 +1964,11 @@ object Form1: TForm1
         end
         object Label5: TLabel
           Left = 13
-          Top = 135
+          Top = 175
           Width = 204
           Height = 27
           AutoSize = False
-          Caption = 'Height space for filename(px)'
+          Caption = 'Height space for item name'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -15
@@ -1977,7 +1995,7 @@ object Form1: TForm1
           IconFont.Style = []
           OnChange = CheckboxNeedChange
           AutomaticCursorPointer = False
-          Text = 'Enable filenames'
+          Text = 'Enable name/custom name'
           Image.SelectSegoe = #59188
           Image.SelectImageIndex = 0
           ImageScale = 1.500000000000000000
@@ -1990,20 +2008,53 @@ object Form1: TForm1
         end
         object Filename_Height: TNumberBox
           Left = 13
-          Top = 168
+          Top = 204
           Width = 220
           Height = 29
+          DisplayFormat = '0.00 cm'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
           Font.Name = 'Segoe UI'
           Font.Style = []
+          Mode = nbmFloat
           MaxValue = 1000.000000000000000000
           ParentFont = False
           TabOrder = 0
-          Value = 200.000000000000000000
+          Value = 2.500000000000000000
           OnExit = Filename_HeightExit
           OnKeyUp = EditSaveHandler
+        end
+        object Extras_filename_ext: FXCheckBox
+          Left = 13
+          Top = 135
+          Width = 236
+          Height = 30
+          CustomColors.Enabled = False
+          CustomColors.Accent = 13924352
+          CustomColors.LightBackGround = 15987699
+          CustomColors.LightForeGround = 1776410
+          CustomColors.DarkBackGround = 2105376
+          CustomColors.DarkForeGround = clWhite
+          IconFont.Charset = DEFAULT_CHARSET
+          IconFont.Color = clWindowText
+          IconFont.Height = -16
+          IconFont.Name = 'Segoe Fluent Icons'
+          IconFont.Style = []
+          State = Checked
+          Checked = True
+          OnChange = CheckboxNeedChange
+          AutomaticCursorPointer = False
+          Text = 'Include file extension'
+          Image.SelectSegoe = #59188
+          Image.SelectImageIndex = 0
+          ImageScale = 1.500000000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = 22
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          TabOrder = 2
         end
       end
     end
@@ -2691,14 +2742,14 @@ object Form1: TForm1
   object FXAppManager1: FXAppManager
     ApplicationIdentifier = 'codrut-printing'
     UpdateCheckInterval = 4
-    AppVersion = '1.2.0.0'
+    AppVersion = '1.2.1.0'
     APIName = 'codrut-printing'
     ApplicationName = 'Codrut Printing'
     HasAppData = True
     AutomaticTasks = [UpdatePrompt, UpdateShowUserScreen, WindowSaveForm, WindowLoadForm]
     UserUpdateWaitDelay = 2000
-    Left = 661
-    Top = 57
+    Left = 669
+    Top = 105
   end
   object PrinterSetupDialog1: TPrinterSetupDialog
     Left = 571
@@ -2710,5 +2761,16 @@ object Form1: TForm1
     Advanced = True
     Left = 467
     Top = 89
+  end
+  object FXPopupMenu1: FXPopupMenu
+    CustomColors.Enabled = False
+    CustomColors.Accent = 13924352
+    CustomColors.LightBackGround = 15987699
+    CustomColors.LightForeGround = 1776410
+    CustomColors.DarkBackGround = 2105376
+    CustomColors.DarkForeGround = clWhite
+    Items.Item = {00000000}
+    Left = 377
+    Top = 92
   end
 end

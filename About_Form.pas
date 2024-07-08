@@ -27,6 +27,7 @@ type
     CButton4: CButton;
     CButton5: CButton;
     FXButton1: FXButton;
+    CButton1: CButton;
     procedure FormCreate(Sender: TObject);
     procedure CButton2Click(Sender: TObject);
     procedure FXBlurMaterial1MouseDown(Sender: TObject; Button: TMouseButton;
@@ -54,6 +55,7 @@ begin
     2: URL := 'https://www.codrutsoft.com';
     3: URL := 'https://www.twitter.com/LAVAplanks';
     4: URL := 'https://www.youtube.com/@codrutsoft';
+    5: URL := 'https://www.paypal.com/paypalme/codrutpetcu';
   end;
 
   ShellRun(URL, true);
