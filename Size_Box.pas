@@ -104,9 +104,9 @@ end;
 
 procedure TSelectSize.CButton5Click(Sender: TObject);
 var
-  A: FXDialog;
+  A: FXModalDialog;
 begin
-  A := FXDialog.Create;
+  A := FXModalDialog.Create;
 
   // Help Dialog
   try

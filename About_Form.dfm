@@ -1,7 +1,7 @@
 object About: TAbout
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu]
+  BorderIcons = []
   BorderStyle = bsSingle
   Caption = 'About Codrut Printing'
   ClientHeight = 522
@@ -9,8 +9,12 @@ object About: TAbout
   Color = clBtnFace
   CustomTitleBar.Control = TitleBarPanel1
   CustomTitleBar.Enabled = True
-  CustomTitleBar.Height = 1
+  CustomTitleBar.Height = 5
   CustomTitleBar.SystemHeight = False
+  CustomTitleBar.ShowCaption = False
+  CustomTitleBar.ShowIcon = False
+  CustomTitleBar.SystemColors = False
+  CustomTitleBar.SystemButtons = False
   CustomTitleBar.BackgroundColor = clWhite
   CustomTitleBar.ForegroundColor = 65793
   CustomTitleBar.InactiveBackgroundColor = clWhite
@@ -30,27 +34,12 @@ object About: TAbout
   Font.Name = 'Segoe UI'
   Font.Style = []
   GlassFrame.Enabled = True
-  GlassFrame.Top = 1
+  GlassFrame.Top = 5
   Position = poMainFormCenter
   StyleElements = [seFont, seClient]
   OnCreate = FormCreate
+  OnMouseDown = FormMouseDown
   TextHeight = 25
-  object FXBlurMaterial1: FXBlurMaterial
-    Left = 0
-    Top = -53
-    Width = 429
-    Height = 575
-    Align = alBottom
-    RefreshMode = Automatic
-    CustomColors.Enabled = True
-    CustomColors.Accent = 3764895
-    CustomColors.LightBackGround = clWhite
-    CustomColors.LightForeGround = clWhite
-    CustomColors.DarkBackGround = clWhite
-    CustomColors.DarkForeGround = clWhite
-    OnMouseDown = FXBlurMaterial1MouseDown
-    ExplicitTop = -59
-  end
   object Shape1: TShape
     Left = 152
     Top = 56
@@ -59,7 +48,7 @@ object About: TAbout
     Brush.Color = 16491781
     Pen.Style = psClear
     Shape = stCircle
-    OnMouseDown = FXBlurMaterial1MouseDown
+    OnMouseDown = FormMouseDown
   end
   object CImage1: CImage
     Left = 152
@@ -725,7 +714,7 @@ object About: TAbout
       8081080000001888000000808108000000188800000080810800000018880000
       0080810800000018880000008081FE7F53CFB80EB05641BB0000000049454E44
       AE426082}
-    OnMouseDown = FXBlurMaterial1MouseDown
+    OnMouseDown = FormMouseDown
   end
   object Label1: TLabel
     Left = 88
@@ -739,7 +728,36 @@ object About: TAbout
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    OnMouseDown = FXBlurMaterial1MouseDown
+    OnMouseDown = FormMouseDown
+  end
+  object Label2: TLabel
+    Left = 88
+    Top = 273
+    Width = 270
+    Height = 25
+    Alignment = taCenter
+    Caption = 'Copyright 2025 Codrut Software'
+    OnMouseDown = FormMouseDown
+  end
+  object Label3: TLabel
+    Left = -5
+    Top = 321
+    Width = 434
+    Height = 25
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Support me'
+    OnMouseDown = FormMouseDown
+  end
+  object Shape2: TShape
+    Left = 40
+    Top = 352
+    Width = 353
+    Height = 131
+    Brush.Color = 15000804
+    Pen.Style = psClear
+    Shape = stRoundRect
+    OnMouseDown = FormMouseDown
   end
   object VerLabel: TLabel
     Left = 1
@@ -755,42 +773,13 @@ object About: TAbout
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    OnMouseDown = FXBlurMaterial1MouseDown
-  end
-  object Label2: TLabel
-    Left = 88
-    Top = 273
-    Width = 270
-    Height = 25
-    Alignment = taCenter
-    Caption = 'Copyright 2024 Codrut Software'
-    OnMouseDown = FXBlurMaterial1MouseDown
-  end
-  object Label3: TLabel
-    Left = 1
-    Top = 321
-    Width = 434
-    Height = 25
-    Alignment = taCenter
-    AutoSize = False
-    Caption = 'Support me'
-    OnMouseDown = FXBlurMaterial1MouseDown
-  end
-  object Shape2: TShape
-    Left = 40
-    Top = 352
-    Width = 353
-    Height = 131
-    Brush.Color = 15000804
-    Pen.Style = psClear
-    Shape = stRoundRect
-    OnMouseDown = FXBlurMaterial1MouseDown
+    OnMouseDown = FormMouseDown
   end
   object TitleBarPanel1: TTitleBarPanel
     Left = 0
     Top = 0
     Width = 429
-    Height = 0
+    Height = 4
     CustomButtons = <>
   end
   object FXPanel1: FXPanel
@@ -810,8 +799,8 @@ object About: TAbout
     ParentBackground = False
     ParentColor = False
     ParentFont = False
-    TabOrder = 1
-    OnMouseDown = FXBlurMaterial1MouseDown
+    TabOrder = 0
+    OnMouseDown = FormMouseDown
     CustomColors.Enabled = True
     CustomColors.Accent = 13924352
     CustomColors.LightBackGround = 15000804
@@ -1063,10 +1052,10 @@ object About: TAbout
       State = mbsLeave
       FlatButton = True
       FlatComplete = True
-      Colors.Enter = 4883711
-      Colors.Leave = 2252027
-      Colors.Down = 13523
-      Colors.BLine = 13523
+      Colors.Enter = 16743912
+      Colors.Leave = 14177728
+      Colors.Down = 11546008
+      Colors.BLine = 11546008
       Preset.Color = clBlue
       Preset.Kind = cbprCustom
       Preset.PenColorAuto = True
@@ -1327,10 +1316,10 @@ object About: TAbout
       State = mbsLeave
       FlatButton = True
       FlatComplete = True
-      Colors.Enter = 4883711
-      Colors.Leave = 2252027
-      Colors.Down = 13523
-      Colors.BLine = 13523
+      Colors.Enter = 16743912
+      Colors.Leave = 14177728
+      Colors.Down = 11546008
+      Colors.BLine = 11546008
       Preset.Color = clBlue
       Preset.Kind = cbprCustom
       Preset.PenColorAuto = True
@@ -1596,10 +1585,10 @@ object About: TAbout
       State = mbsLeave
       FlatButton = True
       FlatComplete = True
-      Colors.Enter = 4883711
-      Colors.Leave = 2252027
-      Colors.Down = 13523
-      Colors.BLine = 13523
+      Colors.Enter = 16743912
+      Colors.Leave = 14177728
+      Colors.Down = 11546008
+      Colors.BLine = 11546008
       Preset.Color = clBlue
       Preset.Kind = cbprCustom
       Preset.PenColorAuto = True
@@ -1860,10 +1849,10 @@ object About: TAbout
       State = mbsLeave
       FlatButton = True
       FlatComplete = True
-      Colors.Enter = 4883711
-      Colors.Leave = 2252027
-      Colors.Down = 13523
-      Colors.BLine = 13523
+      Colors.Enter = 16743912
+      Colors.Leave = 14177728
+      Colors.Down = 11546008
+      Colors.BLine = 11546008
       Preset.Color = clBlue
       Preset.Kind = cbprCustom
       Preset.PenColorAuto = True
@@ -1895,6 +1884,14 @@ object About: TAbout
       Top = 76
       Width = 137
       Height = 40
+      Margins.Left = 0
+      Margins.Top = 0
+      Margins.Right = 0
+      Margins.Bottom = 0
+      Size.X = 137
+      Size.Y = 40
+      Position.X = 64
+      Position.Y = 76
       CustomColors.Enabled = False
       CustomColors.Accent = 13924352
       CustomColors.LightBackGround = 15987699
@@ -1918,15 +1915,7 @@ object About: TAbout
       CustomButtonColors.DarkForeGroundHover = clBlack
       CustomButtonColors.DarkForeGroundPress = clBlack
       Text = 'Done'
-      Image.Enabled = True
-      Image.SelectSegoe = #59198
-      Image.SelectImageIndex = 0
-      ImageScale = 1.250000000000000000
-      ButtonKind = Accent
       LineWidth = 3.000000000000000000
-      StateImage.SelectSegoe = #59188
-      StateImage.SelectImageIndex = 0
-      ModalResult = 8
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = 22
@@ -1934,6 +1923,15 @@ object About: TAbout
       Font.Style = []
       Anchors = [akTop, akRight]
       TabOrder = 4
+      Image.Enabled = True
+      Image.SelectSegoe = #59198
+      Image.SelectImageIndex = 0
+      ImageScale = 1.250000000000000000
+      ButtonKind = Accent
+      StateImage.IconType = None
+      StateImage.SelectSegoe = #59188
+      StateImage.SelectImageIndex = 0
+      ModalResult = 8
     end
     object CButton1: CButton
       Tag = 5
@@ -3315,10 +3313,10 @@ object About: TAbout
       State = mbsLeave
       FlatButton = True
       FlatComplete = True
-      Colors.Enter = 4883711
-      Colors.Leave = 2252027
-      Colors.Down = 13523
-      Colors.BLine = 13523
+      Colors.Enter = 16743912
+      Colors.Leave = 14177728
+      Colors.Down = 11546008
+      Colors.BLine = 11546008
       Preset.Color = clBlue
       Preset.Kind = cbprCustom
       Preset.PenColorAuto = True

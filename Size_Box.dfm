@@ -99,10 +99,10 @@ object SelectSize: TSelectSize
       SubText = 'Hello World!'
       AutoExtendImage = False
       State = mbsLeave
-      Colors.Enter = 4883711
-      Colors.Leave = 2252027
-      Colors.Down = 13523
-      Colors.BLine = 13523
+      Colors.Enter = 16743912
+      Colors.Leave = 14177728
+      Colors.Down = 11546008
+      Colors.BLine = 11546008
       Preset.Color = clBlue
       Preset.Kind = cbprCustom
       Preset.PenColorAuto = True
@@ -163,10 +163,10 @@ object SelectSize: TSelectSize
       AutoExtendImage = False
       State = mbsLeave
       FlatButton = True
-      Colors.Enter = 4883711
-      Colors.Leave = 2252027
-      Colors.Down = 13523
-      Colors.BLine = 13523
+      Colors.Enter = 16743912
+      Colors.Leave = 14177728
+      Colors.Down = 11546008
+      Colors.BLine = 11546008
       Preset.Color = clBlue
       Preset.Kind = cbprCustom
       Preset.PenColorAuto = True
@@ -210,22 +210,20 @@ object SelectSize: TSelectSize
       Left = 3
       Top = 3
       Width = 119
-      Height = 27
+      Height = 21
       Align = alLeft
       Caption = 'Printer Page Size:'
       Layout = tlCenter
-      ExplicitHeight = 21
     end
     object DefSiz: TLabel
       AlignWithMargins = True
       Left = 128
       Top = 3
       Width = 121
-      Height = 27
+      Height = 21
       Align = alLeft
       Caption = 'Width 0, Height 0'
       Layout = tlCenter
-      ExplicitHeight = 21
     end
   end
   object Panel4: TPanel
@@ -274,10 +272,10 @@ object SelectSize: TSelectSize
       AutoExtendImage = False
       State = mbsLeave
       FlatButton = True
-      Colors.Enter = 4883711
-      Colors.Leave = 2252027
-      Colors.Down = 13523
-      Colors.BLine = 13523
+      Colors.Enter = 16743912
+      Colors.Leave = 14177728
+      Colors.Down = 11546008
+      Colors.BLine = 11546008
       Preset.Color = clBlue
       Preset.Kind = cbprCustom
       Preset.PenColorAuto = True
@@ -339,10 +337,10 @@ object SelectSize: TSelectSize
       AutoExtendImage = False
       State = mbsLeave
       FlatButton = True
-      Colors.Enter = 4883711
-      Colors.Leave = 2252027
-      Colors.Down = 13523
-      Colors.BLine = 13523
+      Colors.Enter = 16743912
+      Colors.Leave = 14177728
+      Colors.Down = 11546008
+      Colors.BLine = 11546008
       Preset.Color = clBlue
       Preset.Kind = cbprCustom
       Preset.PenColorAuto = True
@@ -404,10 +402,10 @@ object SelectSize: TSelectSize
       AutoExtendImage = False
       State = mbsLeave
       FlatButton = True
-      Colors.Enter = 4883711
-      Colors.Leave = 2252027
-      Colors.Down = 13523
-      Colors.BLine = 13523
+      Colors.Enter = 16743912
+      Colors.Leave = 14177728
+      Colors.Down = 11546008
+      Colors.BLine = 11546008
       Preset.Color = clBlue
       Preset.Kind = cbprCustom
       Preset.PenColorAuto = True
@@ -469,10 +467,10 @@ object SelectSize: TSelectSize
       AutoExtendImage = False
       State = mbsLeave
       FlatButton = True
-      Colors.Enter = 4883711
-      Colors.Leave = 2252027
-      Colors.Down = 13523
-      Colors.BLine = 13523
+      Colors.Enter = 16743912
+      Colors.Leave = 14177728
+      Colors.Down = 11546008
+      Colors.BLine = 11546008
       Preset.Color = clBlue
       Preset.Kind = cbprCustom
       Preset.PenColorAuto = True
@@ -534,10 +532,10 @@ object SelectSize: TSelectSize
       SubText = 'Hello World!'
       AutoExtendImage = False
       State = mbsLeave
-      Colors.Enter = 4883711
-      Colors.Leave = 2252027
-      Colors.Down = 13523
-      Colors.BLine = 13523
+      Colors.Enter = 16743912
+      Colors.Leave = 14177728
+      Colors.Down = 11546008
+      Colors.BLine = 11546008
       Preset.Color = clBlue
       Preset.Kind = cbprCustom
       Preset.PenColorAuto = True

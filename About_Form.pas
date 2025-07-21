@@ -11,16 +11,8 @@ uses
   CFX.Controls, CFX.Button, CFX.Panels, Cod.SysUtils;
 
 type
-  TAbout = class(FXForm)
-    CImage1: CImage;
-    Shape1: TShape;
-    Label1: TLabel;
-    VerLabel: TLabel;
-    Label2: TLabel;
+  TAbout = class(FXDialogForm)
     TitleBarPanel1: TTitleBarPanel;
-    Label3: TLabel;
-    FXBlurMaterial1: FXBlurMaterial;
-    Shape2: TShape;
     FXPanel1: FXPanel;
     CButton2: CButton;
     CButton3: CButton;
@@ -28,9 +20,16 @@ type
     CButton5: CButton;
     FXButton1: FXButton;
     CButton1: CButton;
+    CImage1: CImage;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Shape1: TShape;
+    Shape2: TShape;
+    VerLabel: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure CButton2Click(Sender: TObject);
-    procedure FXBlurMaterial1MouseDown(Sender: TObject; Button: TMouseButton;
+    procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
   private
     { Private declarations }
@@ -63,16 +62,18 @@ end;
 
 procedure TAbout.FormCreate(Sender: TObject);
 begin
+  ManualCustomTitleBar := true;
+
   // Form
   OnThemeChange := ThemeChange;
 
   // UI
   Shape1.Brush.Color := ThemeManager.AccentColor;
 
-  Self.CustomTitleBar.Height := 0;
+  CustomTitleBar.Height := 2;
 end;
 
-procedure TAbout.FXBlurMaterial1MouseDown(Sender: TObject; Button: TMouseButton;
+procedure TAbout.FormMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   ReleaseCapture;

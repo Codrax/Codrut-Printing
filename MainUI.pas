@@ -236,6 +236,9 @@ type
     procedure RecurseApply(Control: TWinControl; ThemeDark: boolean);
     procedure AnimatePanel(Open: boolean);
 
+    // UI
+    procedure SetUIPrinterSelected(Selected: boolean);
+
     // Validation
     procedure ValidateFilenameHeight;
     procedure ValidatePageMargins;
@@ -298,7 +301,7 @@ type
 
     // Printer
     procedure GetPrinterInfo;
-    procedure ReadPrinterSettings;
+    function ReadPrinterSettings: boolean;
     procedure WritePrinterSettings;
 
     function CmToPixels(cm: extended; DPI: Integer): cardinal;
@@ -488,8 +491,10 @@ begin
     end;
 end;
 
-procedure TForm1.ReadPrinterSettings;
+function TForm1.ReadPrinterSettings: boolean;
 begin
+  Result := true;
+
   // Wait if printer busy
   WaitUntilPrinterFree();
 
@@ -498,8 +503,13 @@ begin
 
   Printer_Orientation.ItemIndex := integer(Printer.Orientation);
 
-  // Information
-  GetPrinterInfo;
+  try
+    // Information
+    GetPrinterInfo;
+  except
+    // failed to fetch printer info
+    Result := false;
+  end;
 end;
 
 procedure TForm1.WritePrinterSettings;
@@ -585,6 +595,10 @@ end;
 
 procedure TForm1.ReDrawPages;
 begin
+  // No printer
+  if Printer_List.ItemIndex = -1 then
+    Exit;
+
   // Check can draw
   if not (LoadingSettings or PagesRendering) then begin
     // Status
@@ -650,6 +664,30 @@ begin
 
       Application.ProcessMessages;
     end);
+end;
+
+procedure TForm1.SetUIPrinterSelected(Selected: boolean);
+begin
+  FXButton4.Enabled := Selected;
+
+  Printer_Print.Enabled := Selected;
+
+  FXMinimisePanel2.Enabled := Selected;
+  FXMinimisePanel3.Enabled := Selected;
+  FXMinimisePanel6.Enabled := Selected;
+  FXMinimisePanel4.Enabled := Selected;
+
+  // Tasks
+  if not Selected then begin
+    // UI
+    FXMinimisePanel2.IsMinimised := true;
+    FXMinimisePanel3.IsMinimised := true;
+    FXMinimisePanel6.IsMinimised := true;
+    FXMinimisePanel4.IsMinimised := true;
+
+    // Clear pages
+    FreeAllocatedPages;
+  end;
 end;
 
 procedure TForm1.ResetProgress(Enabled: boolean; Status: string; Marquee: boolean);
@@ -1007,13 +1045,16 @@ begin
     Exit( false );
 
   RegisteredPrinters := Printers;
+  Printer_List.ItemIndex := 0;
 
-  // Load list
-  Printer_List.Items := Printer.Printers;
-
-  // Load default printer
+  // Load list to UI
+  Printer_List.Items.Assign( Printer.Printers );
   Printer_List.ItemIndex := Printer.PrinterIndex;
-  ReadPrinterSettings;
+
+  // Load selected printer
+  if not ReadPrinterSettings then
+    Printer_List.ItemIndex := -1;
+  SetUIPrinterSelected( Printer_List.ItemIndex <> -1 );
 end;
 
 function TForm1.LoadPrintersDialog: boolean;
@@ -1193,8 +1234,10 @@ begin
   AnimatePanel( Length(Images) = 0 );
 
   // Unminimise
-  FXMinimisePanel1.ToggleMinimised;
-  FXMinimisePanel3.ToggleMinimised;
+  if Printer_List.ItemIndex <> -1 then begin
+    FXMinimisePanel1.ToggleMinimised;
+    FXMinimisePanel3.ToggleMinimised;
+  end;
 end;
 
 procedure TForm1.DeleteImage(Index: integer);
@@ -1228,7 +1271,9 @@ begin
       // Image
       if (CurrentPage > -1) and (CurrentPage < Length(CachedPages)) then
         begin
-          R := GetDrawModeRect( DrawPreview.BoundsRect, CachedPages[CurrentPage], TDrawMode.CenterFit, 0);
+          R := RectangleLayouts(TRect.Create(Point(0,0), CachedPages[CurrentPage].Width, CachedPages[CurrentPage].Height),
+            DrawPreview.BoundsRect,
+            DrawModeToImageLayout(TDrawMode.CenterFit))[0];
 
           // Draw Page
           Brush.Color := clWhite;
@@ -1308,7 +1353,11 @@ begin
 
   // Load printer
   Printer.PrinterIndex := Printer_List.ItemIndex;
-  ReadPrinterSettings;
+  if not ReadPrinterSettings then
+    Printer_List.ItemIndex := -1;
+
+  // Enabled
+  SetUIPrinterSelected( Printer_List.ItemIndex <> -1 );
 
   // Redraw (page size may have changed)
   ReDrawPages;
@@ -1499,10 +1548,9 @@ begin
       TArrayUtils<integer>.AddValue(I, Items);
 
   // Sort
-  TArrayUtils<integer>.Sort(Items, function(A, B: integer): boolean
-    begin
-      Result := A < B;
-    end);
+  TArrayUtils<integer>.Sort(Items, function(A, B: integer): TValueRelationShip begin
+    Result := TType<integer>.Compare(B, A); // inverse
+  end);
 
   // Delete
   for I := 0 to High(Items) do
@@ -1519,10 +1567,16 @@ end;
 
 procedure TForm1.FXButton7Click(Sender: TObject);
 begin
-  PrinterSetupDialog1.Execute;
+  if not PrinterSetupDialog1.Execute then
+    Exit;
 
   // Apply
-  ReadPrinterSettings;
+  Printer_List.ItemIndex := Printer.PrinterIndex;
+  if not ReadPrinterSettings then
+    Printer_List.ItemIndex := -1;
+
+  // Enabled
+  SetUIPrinterSelected( Printer_List.ItemIndex <> -1 );
 
   // Redraw (page size may have changed)
   ReDrawPages;

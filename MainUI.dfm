@@ -143,6 +143,14 @@ object Form1: TForm1
             Width = 80
             Height = 40
             Hint = 'Previous'
+            Margins.Left = 0
+            Margins.Top = 0
+            Margins.Right = 0
+            Margins.Bottom = 0
+            Size.X = 80
+            Size.Y = 40
+            Position.X = 166
+            Position.Y = -1
             CustomColors.Enabled = False
             CustomColors.Accent = 13924352
             CustomColors.LightBackGround = 15987699
@@ -166,13 +174,7 @@ object Form1: TForm1
             CustomButtonColors.DarkForeGroundHover = clBlack
             CustomButtonColors.DarkForeGroundPress = clBlack
             Text = ''
-            Image.Enabled = True
-            Image.SelectSegoe = #59538
-            Image.SelectImageIndex = 0
-            ImageScale = 1.250000000000000000
             LineWidth = 3.000000000000000000
-            StateImage.SelectSegoe = #59188
-            StateImage.SelectImageIndex = 0
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = 22
@@ -182,6 +184,13 @@ object Form1: TForm1
             ParentShowHint = False
             TabOrder = 0
             OnClick = Button_ViewPrevClick
+            Image.Enabled = True
+            Image.SelectSegoe = #59538
+            Image.SelectImageIndex = 0
+            ImageScale = 1.250000000000000000
+            StateImage.IconType = None
+            StateImage.SelectSegoe = #59188
+            StateImage.SelectImageIndex = 0
           end
           object Button_ViewNext: FXButton
             Left = 252
@@ -189,6 +198,14 @@ object Form1: TForm1
             Width = 80
             Height = 40
             Hint = 'Next'
+            Margins.Left = 0
+            Margins.Top = 0
+            Margins.Right = 0
+            Margins.Bottom = 0
+            Size.X = 80
+            Size.Y = 40
+            Position.X = 252
+            Position.Y = -1
             CustomColors.Enabled = False
             CustomColors.Accent = 13924352
             CustomColors.LightBackGround = 15987699
@@ -212,13 +229,7 @@ object Form1: TForm1
             CustomButtonColors.DarkForeGroundHover = clBlack
             CustomButtonColors.DarkForeGroundPress = clBlack
             Text = ''
-            Image.Enabled = True
-            Image.SelectSegoe = #59539
-            Image.SelectImageIndex = 0
-            ImageScale = 1.250000000000000000
             LineWidth = 3.000000000000000000
-            StateImage.SelectSegoe = #59188
-            StateImage.SelectImageIndex = 0
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = 22
@@ -228,6 +239,13 @@ object Form1: TForm1
             ParentShowHint = False
             TabOrder = 1
             OnClick = Button_ViewNextClick
+            Image.Enabled = True
+            Image.SelectSegoe = #59539
+            Image.SelectImageIndex = 0
+            ImageScale = 1.250000000000000000
+            StateImage.IconType = None
+            StateImage.SelectSegoe = #59188
+            StateImage.SelectImageIndex = 0
           end
         end
       end
@@ -531,15 +549,18 @@ object Form1: TForm1
             CustomColors.DarkBackGroundInterior = 2829099
             AccentLineWidth = 8
             object FXButton2: FXButton
-              AlignWithMargins = True
-              Left = 5
-              Top = 5
+              Left = 0
+              Top = 0
               Width = 140
-              Height = 41
-              Margins.Left = 5
-              Margins.Top = 5
-              Margins.Right = 5
-              Margins.Bottom = 5
+              Height = 51
+              Margins.Left = 0
+              Margins.Top = 0
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Size.X = 140
+              Size.Y = 51
+              Position.X = 0
+              Position.Y = 0
               CustomColors.Enabled = False
               CustomColors.Accent = 13924352
               CustomColors.LightBackGround = 15987699
@@ -563,13 +584,7 @@ object Form1: TForm1
               CustomButtonColors.DarkForeGroundHover = clBlack
               CustomButtonColors.DarkForeGroundPress = clBlack
               Text = 'Add files'
-              Image.Enabled = True
-              Image.SelectSegoe = #59171
-              Image.SelectImageIndex = 0
-              ImageScale = 1.250000000000000000
               LineWidth = 3.000000000000000000
-              StateImage.SelectSegoe = #59188
-              StateImage.SelectImageIndex = 0
               Align = alLeft
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
@@ -578,17 +593,27 @@ object Form1: TForm1
               Font.Style = []
               TabOrder = 0
               OnClick = LoadFilesClick
+              Image.Enabled = True
+              Image.SelectSegoe = #59171
+              Image.SelectImageIndex = 0
+              ImageScale = 1.250000000000000000
+              StateImage.IconType = None
+              StateImage.SelectSegoe = #59188
+              StateImage.SelectImageIndex = 0
             end
             object FXButton1: FXButton
-              AlignWithMargins = True
-              Left = 155
-              Top = 5
+              Left = 140
+              Top = 0
               Width = 135
-              Height = 41
-              Margins.Left = 5
-              Margins.Top = 5
-              Margins.Right = 5
-              Margins.Bottom = 5
+              Height = 51
+              Margins.Left = 0
+              Margins.Top = 0
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Size.X = 135
+              Size.Y = 51
+              Position.X = 140
+              Position.Y = 0
               Enabled = False
               CustomColors.Enabled = False
               CustomColors.Accent = 13924352
@@ -613,14 +638,7 @@ object Form1: TForm1
               CustomButtonColors.DarkForeGroundHover = clBlack
               CustomButtonColors.DarkForeGroundPress = clBlack
               Text = 'Delete'
-              Image.Enabled = True
-              Image.SelectSegoe = #59213
-              Image.SelectImageIndex = 0
-              ImageScale = 1.250000000000000000
-              ButtonKind = Flat
               LineWidth = 3.000000000000000000
-              StateImage.SelectSegoe = #59188
-              StateImage.SelectImageIndex = 0
               Align = alLeft
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
@@ -629,18 +647,29 @@ object Form1: TForm1
               Font.Style = []
               TabOrder = 1
               OnClick = FXButton1Click
+              Image.Enabled = True
+              Image.SelectSegoe = #59213
+              Image.SelectImageIndex = 0
+              ImageScale = 1.250000000000000000
+              ButtonKind = Flat
+              StateImage.IconType = None
+              StateImage.SelectSegoe = #59188
+              StateImage.SelectImageIndex = 0
             end
             object FXButton3: FXButton
-              AlignWithMargins = True
-              Left = 300
-              Top = 5
-              Width = 50
-              Height = 41
+              Left = 275
+              Top = 0
+              Width = 80
+              Height = 51
               Hint = 'Clear pictures'
-              Margins.Left = 5
-              Margins.Top = 5
-              Margins.Right = 5
-              Margins.Bottom = 5
+              Margins.Left = 0
+              Margins.Top = 0
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Size.X = 80
+              Size.Y = 51
+              Position.X = 275
+              Position.Y = 0
               Enabled = False
               CustomColors.Enabled = False
               CustomColors.Accent = 13924352
@@ -665,14 +694,7 @@ object Form1: TForm1
               CustomButtonColors.DarkForeGroundHover = clBlack
               CustomButtonColors.DarkForeGroundPress = clBlack
               Text = ''
-              Image.Enabled = True
-              Image.SelectSegoe = #59153
-              Image.SelectImageIndex = 0
-              ImageScale = 1.250000000000000000
-              ButtonKind = Flat
               LineWidth = 3.000000000000000000
-              StateImage.SelectSegoe = #59188
-              StateImage.SelectImageIndex = 0
               Align = alClient
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
@@ -683,6 +705,14 @@ object Form1: TForm1
               ParentShowHint = False
               TabOrder = 2
               OnClick = CButton4Click
+              Image.Enabled = True
+              Image.SelectSegoe = #59153
+              Image.SelectImageIndex = 0
+              ImageScale = 1.250000000000000000
+              ButtonKind = Flat
+              StateImage.IconType = None
+              StateImage.SelectSegoe = #59188
+              StateImage.SelectImageIndex = 0
             end
           end
         end
@@ -745,6 +775,14 @@ object Form1: TForm1
         Top = 10
         Width = 136
         Height = 21
+        Margins.Left = 0
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Size.X = 136
+        Size.Y = 21
+        Position.X = 6
+        Position.Y = 10
         Visible = False
         CustomColors.Enabled = False
         CustomColors.Accent = 13924352
@@ -768,6 +806,14 @@ object Form1: TForm1
         Top = 30
         Width = 455
         Height = 20
+        Margins.Left = 0
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Size.X = 455
+        Size.Y = 20
+        Position.X = 6
+        Position.Y = 30
         Visible = False
         CustomColors.Enabled = False
         CustomColors.Accent = 13924352
@@ -783,7 +829,6 @@ object Form1: TForm1
         CustomOtherColors.LightForeGround = 1776410
         CustomOtherColors.DarkBackGround = 2105376
         CustomOtherColors.DarkForeGround = clWhite
-        Animations = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = 22
@@ -793,13 +838,18 @@ object Form1: TForm1
         TabOrder = 1
       end
       object Printer_Cancel: FXButton
-        AlignWithMargins = True
-        Left = 656
-        Top = 8
+        Left = 659
+        Top = 0
         Width = 150
-        Height = 48
-        Margins.Top = 8
-        Margins.Bottom = 8
+        Height = 64
+        Margins.Left = 0
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Size.X = 150
+        Size.Y = 64
+        Position.X = 659
+        Position.Y = 0
         CustomColors.Enabled = False
         CustomColors.Accent = 13924352
         CustomColors.LightBackGround = 15987699
@@ -823,13 +873,7 @@ object Form1: TForm1
         CustomButtonColors.DarkForeGroundHover = clBlack
         CustomButtonColors.DarkForeGroundPress = clBlack
         Text = 'Cancel'
-        Image.Enabled = True
-        Image.SelectSegoe = #59153
-        Image.SelectImageIndex = 0
-        ImageScale = 1.250000000000000000
         LineWidth = 3.000000000000000000
-        StateImage.SelectSegoe = #59188
-        StateImage.SelectImageIndex = 0
         Align = alRight
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -838,15 +882,27 @@ object Form1: TForm1
         Font.Style = []
         TabOrder = 2
         OnClick = Printer_CancelClick
+        Image.Enabled = True
+        Image.SelectSegoe = #59153
+        Image.SelectImageIndex = 0
+        ImageScale = 1.250000000000000000
+        StateImage.IconType = None
+        StateImage.SelectSegoe = #59188
+        StateImage.SelectImageIndex = 0
       end
       object Printer_Print: FXButton
-        AlignWithMargins = True
-        Left = 500
-        Top = 8
+        Left = 509
+        Top = 0
         Width = 150
-        Height = 48
-        Margins.Top = 8
-        Margins.Bottom = 8
+        Height = 64
+        Margins.Left = 0
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Size.X = 150
+        Size.Y = 64
+        Position.X = 509
+        Position.Y = 0
         CustomColors.Enabled = False
         CustomColors.Accent = 13924352
         CustomColors.LightBackGround = 15987699
@@ -870,14 +926,7 @@ object Form1: TForm1
         CustomButtonColors.DarkForeGroundHover = clBlack
         CustomButtonColors.DarkForeGroundPress = clBlack
         Text = 'Print'
-        Image.Enabled = True
-        Image.SelectSegoe = #59209
-        Image.SelectImageIndex = 0
-        ImageScale = 1.250000000000000000
-        ButtonKind = Accent
         LineWidth = 3.000000000000000000
-        StateImage.SelectSegoe = #59188
-        StateImage.SelectImageIndex = 0
         Align = alRight
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -886,6 +935,14 @@ object Form1: TForm1
         Font.Style = []
         TabOrder = 3
         OnClick = Printer_PrintClick
+        Image.Enabled = True
+        Image.SelectSegoe = #59209
+        Image.SelectImageIndex = 0
+        ImageScale = 1.250000000000000000
+        ButtonKind = Accent
+        StateImage.IconType = None
+        StateImage.SelectSegoe = #59188
+        StateImage.SelectImageIndex = 0
       end
     end
   end
@@ -918,6 +975,7 @@ object Form1: TForm1
       CustomColors.DarkForeGround = clWhite
       CustomColors.LightBackGroundInterior = 16514043
       CustomColors.DarkBackGroundInterior = 2829099
+      AnimateScroll = True
       KeepScrollAlignment = True
       ScrollSpeed = 25
       object FXMinimisePanel1: FXMinimisePanel
@@ -970,6 +1028,7 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #62829
         Image.SelectImageIndex = 0
+        ExplicitWidth = 252
         object Label1: TLabel
           Left = 16
           Top = 70
@@ -999,6 +1058,14 @@ object Form1: TForm1
           Width = 39
           Height = 28
           Cursor = crHandPoint
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Size.X = 39
+          Size.Y = 28
+          Position.X = 210
+          Position.Y = 99
           CustomColors.Enabled = False
           CustomColors.Accent = 13924352
           CustomColors.LightBackGround = 15987699
@@ -1022,14 +1089,7 @@ object Form1: TForm1
           CustomButtonColors.DarkForeGroundHover = clBlack
           CustomButtonColors.DarkForeGroundPress = clBlack
           Text = ''
-          Image.Enabled = True
-          Image.SelectSegoe = #61799
-          Image.SelectImageIndex = 0
-          ImageScale = 1.250000000000000000
-          ButtonKind = Link
           LineWidth = 3.000000000000000000
-          StateImage.SelectSegoe = #59188
-          StateImage.SelectImageIndex = 0
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = 22
@@ -1037,12 +1097,28 @@ object Form1: TForm1
           Font.Style = []
           TabOrder = 1
           OnClick = CButton1Click
+          Image.Enabled = True
+          Image.SelectSegoe = #61799
+          Image.SelectImageIndex = 0
+          ImageScale = 1.250000000000000000
+          ButtonKind = Link
+          StateImage.IconType = None
+          StateImage.SelectSegoe = #59188
+          StateImage.SelectImageIndex = 0
         end
         object FXButton7: FXButton
           Left = 16
           Top = 133
           Width = 233
           Height = 35
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Size.X = 233
+          Size.Y = 35
+          Position.X = 16
+          Position.Y = 133
           CustomColors.Enabled = False
           CustomColors.Accent = 13924352
           CustomColors.LightBackGround = 15987699
@@ -1066,15 +1142,7 @@ object Form1: TForm1
           CustomButtonColors.DarkForeGroundHover = clBlack
           CustomButtonColors.DarkForeGroundPress = clBlack
           Text = 'Printer configuration'
-          Image.Enabled = True
-          Image.SelectSegoe = #60507
-          Image.SelectImageIndex = 0
-          ImageScale = 1.250000000000000000
-          LayoutHorizontal = Beginning
-          ButtonKind = Flat
           LineWidth = 3.000000000000000000
-          StateImage.SelectSegoe = #59188
-          StateImage.SelectImageIndex = 0
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = 22
@@ -1082,6 +1150,15 @@ object Form1: TForm1
           Font.Style = []
           TabOrder = 2
           OnClick = FXButton7Click
+          Image.Enabled = True
+          Image.SelectSegoe = #60507
+          Image.SelectImageIndex = 0
+          ImageScale = 1.250000000000000000
+          LayoutHorizontal = Beginning
+          ButtonKind = Flat
+          StateImage.IconType = None
+          StateImage.SelectSegoe = #59188
+          StateImage.SelectImageIndex = 0
         end
       end
       object FXMinimisePanel2: FXMinimisePanel
@@ -1134,6 +1211,7 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #59734
         Image.SelectImageIndex = 0
+        ExplicitWidth = 252
         object Label7: TLabel
           Left = 16
           Top = 74
@@ -1223,6 +1301,14 @@ object Form1: TForm1
           Top = 255
           Width = 191
           Height = 35
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Size.X = 191
+          Size.Y = 35
+          Position.X = 13
+          Position.Y = 255
           CustomColors.Enabled = False
           CustomColors.Accent = 13924352
           CustomColors.LightBackGround = 15987699
@@ -1246,14 +1332,7 @@ object Form1: TForm1
           CustomButtonColors.DarkForeGroundHover = clBlack
           CustomButtonColors.DarkForeGroundPress = clBlack
           Text = 'Change...'
-          Image.Enabled = True
-          Image.SelectSegoe = #59280
-          Image.SelectImageIndex = 0
-          ImageScale = 1.250000000000000000
-          LayoutHorizontal = Beginning
           LineWidth = 3.000000000000000000
-          StateImage.SelectSegoe = #59188
-          StateImage.SelectImageIndex = 0
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = 22
@@ -1261,12 +1340,28 @@ object Form1: TForm1
           Font.Style = []
           TabOrder = 2
           OnClick = FXButton8Click
+          Image.Enabled = True
+          Image.SelectSegoe = #59280
+          Image.SelectImageIndex = 0
+          ImageScale = 1.250000000000000000
+          LayoutHorizontal = Beginning
+          StateImage.IconType = None
+          StateImage.SelectSegoe = #59188
+          StateImage.SelectImageIndex = 0
         end
         object FXButton9: FXButton
           Left = 210
           Top = 255
           Width = 39
           Height = 35
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Size.X = 39
+          Size.Y = 35
+          Position.X = 210
+          Position.Y = 255
           Enabled = False
           CustomColors.Enabled = False
           CustomColors.Accent = 13924352
@@ -1291,14 +1386,7 @@ object Form1: TForm1
           CustomButtonColors.DarkForeGroundHover = clBlack
           CustomButtonColors.DarkForeGroundPress = clBlack
           Text = ''
-          Image.Enabled = True
-          Image.SelectSegoe = #60304
-          Image.SelectImageIndex = 0
-          ImageScale = 1.250000000000000000
-          ButtonKind = Flat
           LineWidth = 3.000000000000000000
-          StateImage.SelectSegoe = #59188
-          StateImage.SelectImageIndex = 0
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = 22
@@ -1306,6 +1394,14 @@ object Form1: TForm1
           Font.Style = []
           TabOrder = 3
           OnClick = FXButton9Click
+          Image.Enabled = True
+          Image.SelectSegoe = #60304
+          Image.SelectImageIndex = 0
+          ImageScale = 1.250000000000000000
+          ButtonKind = Flat
+          StateImage.IconType = None
+          StateImage.SelectSegoe = #59188
+          StateImage.SelectImageIndex = 0
         end
       end
       object FXMinimisePanel3: FXMinimisePanel
@@ -1358,6 +1454,7 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #62830
         Image.SelectImageIndex = 0
+        ExplicitWidth = 252
         object Label8: TLabel
           Left = 16
           Top = 64
@@ -1393,6 +1490,14 @@ object Form1: TForm1
           Top = 216
           Width = 236
           Height = 30
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Size.X = 236
+          Size.Y = 30
+          Position.X = 13
+          Position.Y = 216
           CustomColors.Enabled = False
           CustomColors.Accent = 13924352
           CustomColors.LightBackGround = 15987699
@@ -1409,6 +1514,7 @@ object Form1: TForm1
           OnChange = CheckboxNeedChange
           AutomaticCursorPointer = False
           Text = 'Center items on page'
+          Image.IconType = None
           Image.SelectSegoe = #59188
           Image.SelectImageIndex = 0
           ImageScale = 1.500000000000000000
@@ -1515,6 +1621,7 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #62836
         Image.SelectImageIndex = 0
+        ExplicitWidth = 252
         object Label9: TLabel
           Left = 16
           Top = 72
@@ -1703,7 +1810,7 @@ object Form1: TForm1
           Width = 233
           Height = 44
           AutoSize = False
-          Caption = #169' 2024 Codrut Software. All rights reserved.'
+          Caption = #169' 2025 Codrut Software. All rights reserved.'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -1717,6 +1824,14 @@ object Form1: TForm1
           Top = 105
           Width = 236
           Height = 30
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Size.X = 236
+          Size.Y = 30
+          Position.X = 13
+          Position.Y = 105
           CustomColors.Enabled = False
           CustomColors.Accent = 13924352
           CustomColors.LightBackGround = 15987699
@@ -1731,6 +1846,7 @@ object Form1: TForm1
           OnChange = EnbLegFontChange
           AutomaticCursorPointer = False
           Text = 'Force Legacy Font'
+          Image.IconType = None
           Image.SelectSegoe = #59188
           Image.SelectImageIndex = 0
           ImageScale = 1.500000000000000000
@@ -1746,6 +1862,14 @@ object Form1: TForm1
           Top = 69
           Width = 236
           Height = 30
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Size.X = 236
+          Size.Y = 30
+          Position.X = 13
+          Position.Y = 69
           CustomColors.Enabled = False
           CustomColors.Accent = 13924352
           CustomColors.LightBackGround = 15987699
@@ -1759,6 +1883,7 @@ object Form1: TForm1
           IconFont.Style = []
           AutomaticCursorPointer = False
           Text = 'Enable Animations'
+          Image.IconType = None
           Image.SelectSegoe = #59188
           Image.SelectImageIndex = 0
           ImageScale = 1.500000000000000000
@@ -1774,6 +1899,14 @@ object Form1: TForm1
           Top = 140
           Width = 236
           Height = 30
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Size.X = 236
+          Size.Y = 30
+          Position.X = 13
+          Position.Y = 140
           CustomColors.Enabled = False
           CustomColors.Accent = 13924352
           CustomColors.LightBackGround = 15987699
@@ -1788,6 +1921,7 @@ object Form1: TForm1
           OnChange = EnbLegFontChange
           AutomaticCursorPointer = False
           Text = 'Close after print'
+          Image.IconType = None
           Image.SelectSegoe = #59188
           Image.SelectImageIndex = 0
           ImageScale = 1.500000000000000000
@@ -1799,10 +1933,18 @@ object Form1: TForm1
           TabOrder = 2
         end
         object FXButton5: FXButton
-          Left = 3
+          Left = -14
           Top = 295
           Width = 229
           Height = 35
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Size.X = 229
+          Size.Y = 35
+          Position.X = -14
+          Position.Y = 295
           CustomColors.Enabled = False
           CustomColors.Accent = 13924352
           CustomColors.LightBackGround = 15987699
@@ -1826,14 +1968,7 @@ object Form1: TForm1
           CustomButtonColors.DarkForeGroundHover = clBlack
           CustomButtonColors.DarkForeGroundPress = clBlack
           Text = 'About Codrut Printing'
-          Image.Enabled = True
-          Image.SelectSegoe = #61799
-          Image.SelectImageIndex = 0
-          ImageScale = 1.100000000000000000
-          ButtonKind = Accent
           LineWidth = 3.000000000000000000
-          StateImage.SelectSegoe = #59188
-          StateImage.SelectImageIndex = 0
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = 22
@@ -1842,13 +1977,30 @@ object Form1: TForm1
           Anchors = [akTop, akRight]
           TabOrder = 3
           OnClick = CButton3Click
+          Image.Enabled = True
+          Image.SelectSegoe = #61799
+          Image.SelectImageIndex = 0
+          ImageScale = 1.100000000000000000
+          ButtonKind = Accent
+          StateImage.IconType = None
+          StateImage.SelectSegoe = #59188
+          StateImage.SelectImageIndex = 0
+          ExplicitLeft = 3
         end
         object FXButton6: FXButton
-          Left = 3
+          Left = -31
           Top = 336
           Width = 229
           Height = 35
           Cursor = crHandPoint
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Size.X = 229
+          Size.Y = 35
+          Position.X = -31
+          Position.Y = 336
           CustomColors.Enabled = False
           CustomColors.Accent = 13924352
           CustomColors.LightBackGround = 15987699
@@ -1872,14 +2024,7 @@ object Form1: TForm1
           CustomButtonColors.DarkForeGroundHover = clBlack
           CustomButtonColors.DarkForeGroundPress = clBlack
           Text = 'Check for updates'
-          Image.Enabled = True
-          Image.SelectSegoe = #60613
-          Image.SelectImageIndex = 0
-          ImageScale = 1.100000000000000000
-          ButtonKind = Link
           LineWidth = 3.000000000000000000
-          StateImage.SelectSegoe = #59188
-          StateImage.SelectImageIndex = 0
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = 22
@@ -1888,6 +2033,15 @@ object Form1: TForm1
           Anchors = [akTop, akRight]
           TabOrder = 4
           OnClick = FXButton6Click
+          Image.Enabled = True
+          Image.SelectSegoe = #60613
+          Image.SelectImageIndex = 0
+          ImageScale = 1.100000000000000000
+          ButtonKind = Link
+          StateImage.IconType = None
+          StateImage.SelectSegoe = #59188
+          StateImage.SelectImageIndex = 0
+          ExplicitLeft = -14
         end
       end
       object FXMinimisePanel6: FXMinimisePanel
@@ -1940,6 +2094,7 @@ object Form1: TForm1
         Image.Enabled = True
         Image.SelectSegoe = #60538
         Image.SelectImageIndex = 0
+        ExplicitWidth = 252
         object Label4: TLabel
           Left = 16
           Top = 66
@@ -1975,6 +2130,14 @@ object Form1: TForm1
           Top = 99
           Width = 236
           Height = 30
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Size.X = 236
+          Size.Y = 30
+          Position.X = 13
+          Position.Y = 99
           CustomColors.Enabled = False
           CustomColors.Accent = 13924352
           CustomColors.LightBackGround = 15987699
@@ -1989,6 +2152,7 @@ object Form1: TForm1
           OnChange = CheckboxNeedChange
           AutomaticCursorPointer = False
           Text = 'Enable name/custom name'
+          Image.IconType = None
           Image.SelectSegoe = #59188
           Image.SelectImageIndex = 0
           ImageScale = 1.500000000000000000
@@ -2023,6 +2187,14 @@ object Form1: TForm1
           Top = 135
           Width = 236
           Height = 30
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Size.X = 236
+          Size.Y = 30
+          Position.X = 13
+          Position.Y = 135
           CustomColors.Enabled = False
           CustomColors.Accent = 13924352
           CustomColors.LightBackGround = 15987699
@@ -2039,6 +2211,7 @@ object Form1: TForm1
           OnChange = CheckboxNeedChange
           AutomaticCursorPointer = False
           Text = 'Include file extension'
+          Image.IconType = None
           Image.SelectSegoe = #59188
           Image.SelectImageIndex = 0
           ImageScale = 1.500000000000000000
@@ -2735,7 +2908,7 @@ object Form1: TForm1
   object FXAppManager1: FXAppManager
     ApplicationIdentifier = 'codrut-printing'
     UpdateCheckInterval = 4
-    AppVersion = '1.2.1.0'
+    AppVersion = '1.2.2.0'
     APIName = 'codrut-printing'
     ApplicationName = 'Codrut Printing'
     HasAppData = True

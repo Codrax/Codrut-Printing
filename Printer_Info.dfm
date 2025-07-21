@@ -546,6 +546,14 @@ object PrinterInfo: TPrinterInfo
       Top = 11
       Width = 150
       Height = 40
+      Margins.Left = 0
+      Margins.Top = 0
+      Margins.Right = 0
+      Margins.Bottom = 0
+      Size.X = 150
+      Size.Y = 40
+      Position.X = 424
+      Position.Y = 11
       CustomColors.Enabled = False
       CustomColors.Accent = 13924352
       CustomColors.LightBackGround = 15987699
@@ -569,15 +577,7 @@ object PrinterInfo: TPrinterInfo
       CustomButtonColors.DarkForeGroundHover = clBlack
       CustomButtonColors.DarkForeGroundPress = clBlack
       Text = 'Done'
-      Image.Enabled = True
-      Image.SelectSegoe = #59198
-      Image.SelectImageIndex = 0
-      ImageScale = 1.250000000000000000
-      ButtonKind = Accent
       LineWidth = 3.000000000000000000
-      StateImage.SelectSegoe = #59188
-      StateImage.SelectImageIndex = 0
-      ModalResult = 1
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = 22
@@ -585,12 +585,29 @@ object PrinterInfo: TPrinterInfo
       Font.Style = []
       Anchors = [akTop, akRight]
       TabOrder = 0
+      Image.Enabled = True
+      Image.SelectSegoe = #59198
+      Image.SelectImageIndex = 0
+      ImageScale = 1.250000000000000000
+      ButtonKind = Accent
+      StateImage.IconType = None
+      StateImage.SelectSegoe = #59188
+      StateImage.SelectImageIndex = 0
+      ModalResult = 1
     end
     object FXButton2: FXButton
       Left = 16
       Top = 11
       Width = 150
       Height = 40
+      Margins.Left = 0
+      Margins.Top = 0
+      Margins.Right = 0
+      Margins.Bottom = 0
+      Size.X = 150
+      Size.Y = 40
+      Position.X = 16
+      Position.Y = 11
       CustomColors.Enabled = False
       CustomColors.Accent = 13924352
       CustomColors.LightBackGround = 15987699
@@ -614,13 +631,7 @@ object PrinterInfo: TPrinterInfo
       CustomButtonColors.DarkForeGroundHover = clBlack
       CustomButtonColors.DarkForeGroundPress = clBlack
       Text = 'Reload'
-      Image.Enabled = True
-      Image.SelectSegoe = #59180
-      Image.SelectImageIndex = 0
-      ImageScale = 1.250000000000000000
       LineWidth = 3.000000000000000000
-      StateImage.SelectSegoe = #59188
-      StateImage.SelectImageIndex = 0
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = 22
@@ -629,6 +640,13 @@ object PrinterInfo: TPrinterInfo
       Anchors = [akTop, akRight]
       TabOrder = 1
       OnClick = CButton1Click
+      Image.Enabled = True
+      Image.SelectSegoe = #59180
+      Image.SelectImageIndex = 0
+      ImageScale = 1.250000000000000000
+      StateImage.IconType = None
+      StateImage.SelectSegoe = #59188
+      StateImage.SelectImageIndex = 0
     end
   end
 end

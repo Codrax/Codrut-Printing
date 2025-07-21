@@ -10,7 +10,7 @@ uses
   CFX.Controls, CFX.Button, CFX.Panels;
 
 type
-  TPrinterInfo = class(FXForm)
+  TPrinterInfo = class(FXDialogForm)
     Label1: TLabel;
     CImage1: CImage;
     Label2: TLabel;
@@ -69,9 +69,24 @@ end;
 procedure TPrinterInfo.GetInfo;
 var
   PrinterOnline: boolean;
+  SPageSize,
+  SHandle: string;
 begin
   // Get Data
   PrinterOnline := IsPrinterOnline(Printer.Printers[Printer.PrinterIndex]);
+
+  // Fetch data (requires printer to be online)
+  Memo1.Lines.Clear;
+  try
+    SHandle := integer(Printer.Handle).ToString;
+    SPageSize := Form1.PixelsToCmStr(Printer.PageWidth, DPI_X)
+      + ' x ' + Form1.PixelsToCmStr(Printer.PageHeight, DPI_Y);
+
+    Memo1.Lines.Assign( Printer.Fonts );
+  except
+    SHandle := '[failure]';
+    SPageSize := '[failure]';
+  end;
 
   // UI
   if PrinterOnline then
@@ -81,8 +96,7 @@ begin
 
   // Add Text
   Label1.Caption := Printer.Printers[Printer.PrinterIndex];
-  Label2.Caption := 'Page Size: ' + Form1.PixelsToCmStr(Printer.PageWidth, DPI_X)
-                    + ' x ' + Form1.PixelsToCmStr(Printer.PageHeight, DPI_Y);
+  Label2.Caption := 'Page Size: ' + SPageSize;
 
   Label5.Caption := 'DPI: X: ' + DPI_X.ToString + ' Y: ' + DPI_Y.ToString;
   Label4.Caption := 'Orientation: ' ;
@@ -103,14 +117,16 @@ begin
   if Printer.Capabilities <> [] then
     Label6.Caption := Copy(Label6.Caption, 1, Length(Label6.Caption) -2);
 
-  Label7.Caption := 'Handle: ' + integer(Printer.Handle).ToString;
-
-  Memo1.Lines := Printer.Fonts;
+  Label7.Caption := 'Handle: ' + SHandle;
 
   Label9.Caption := 'Connected: ' + BooleanToYesNo( PrinterOnline );
 
-  // Icon
-  GetIcon;
+  try
+    // Icon
+    GetIcon;
+  except
+    // user cancelled
+  end;
 end;
 
 procedure TPrinterInfo.ThemeChange(Sender: TObject; ThemeChange: FXThemeType;
